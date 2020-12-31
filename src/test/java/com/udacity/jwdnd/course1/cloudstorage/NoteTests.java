@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class CredentialTests {
+public class NoteTests {
 
     @LocalServerPort
     private Integer port; // this port is the RANDOM_PORT
@@ -58,5 +58,6 @@ public class CredentialTests {
         // initialize homepage page:
         HomePage homePage = new HomePage(driver);
     }
+
 
 }
