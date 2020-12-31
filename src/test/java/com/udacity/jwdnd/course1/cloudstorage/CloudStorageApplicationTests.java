@@ -1,5 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage;
 
+import com.udacity.jwdnd.course1.cloudstorage.pages.HomePage;
 import com.udacity.jwdnd.course1.cloudstorage.pages.LoginPage;
 import com.udacity.jwdnd.course1.cloudstorage.pages.SignupPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -8,6 +9,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CloudStorageApplicationTests {
@@ -20,6 +23,7 @@ class CloudStorageApplicationTests {
 
 	private SignupPage signupPage;
 	private LoginPage loginPage;
+	private HomePage homePage;
 
 	String baseURL;
 
@@ -30,7 +34,7 @@ class CloudStorageApplicationTests {
 	}
 
 	@AfterAll
-	public void afterAll() {
+	public static void afterAll() {
 		driver.quit();
 	}
 
@@ -40,7 +44,7 @@ class CloudStorageApplicationTests {
 	}
 
 	@Test
-	public void testAuthorization() {
+	public void testLoginLogout() {
 		// define data to fill in:
 		String firstname = "Phuong";
 		String lastname = "Tran";
@@ -59,12 +63,27 @@ class CloudStorageApplicationTests {
 		driver.get(baseURL + "/login");
 
 		// initialize object of LoginPage
-		// call .login() to simulate user's login:
 		loginPage = new LoginPage(driver);
+		// check if this page title is Login after signing up:
+		assertEquals("Login", driver.getTitle());
+		// call .login() to simulate user's login:
 		loginPage.login(username, password);
 
 		// after successfully login, auto navigate to /home:
+		// initialize object for HomePage
+		homePage = new HomePage(driver);
+		// check if page title is Home after loggin in:
+		assertEquals("Home", driver.getTitle());
 
+		// try to wait 2000s, then log out:
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+		// simulate user to click logout to be logged out:
+		homePage.logout();
 	}
 
 }
