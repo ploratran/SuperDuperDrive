@@ -55,8 +55,13 @@ public class HomePage {
     }
 
     // verify that new note title is created:
-    public WebElement getNoteTitleText() {
-        return noteTitle;
+    public String getNoteTitleText() {
+        return noteTitle.getText();
+    }
+
+    // verify that new note description is created:
+    public String getNoteDescriptionText() {
+        return noteDescription.getText();
     }
 
     // METHOD FOR LOGOUT:

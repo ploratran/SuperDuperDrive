@@ -131,6 +131,8 @@ public class NoteTests {
         // click note tab again:
         homePage.clickNoteTab();
 
+        assertEquals("Test Note Title", homePage.getNoteTitleText());
+
         // try to wait 2000s:
         try {
             Thread.sleep(2000);
