@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * restrict unauthorized users from accessing pages other than
@@ -37,20 +38,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // authorize without auth to any users to /signup:
         http.authorizeRequests()
-                .antMatchers("/signup", "/css/**", "/js/**").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/signup","/login", "/css/**", "/js/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .logout()
+                    .deleteCookies("remove")
+                    .invalidateHttpSession(true)
+                    .logoutSuccessUrl("/login?logout");
 
         // handling calls to the /login and /logout endpoints
         //  use the security configuration to override the default login page with one of your own
         http.formLogin()
                 .loginPage("/login")
                 .permitAll()
-                .and()
-                .logout()
-                    .deleteCookies("remove")
-                    .logoutSuccessUrl("/login");
-
-        http.formLogin()
                 .defaultSuccessUrl("/home", true);
+
     }
 }
