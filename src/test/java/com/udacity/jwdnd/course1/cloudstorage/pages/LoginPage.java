@@ -32,17 +32,9 @@ public class LoginPage {
     // methods:
     public void login(String username, String password) {
         // fill in data:
-        this.username.sendKeys("ploratran");
-        this.password.sendKeys("p@ssword");
-        // hit Login button:
-        this.submitBtn.click();
-    }
-
-    public void unauthorizeLogin(String username, String password) {
-        // fill in data with unauthorized user info:
         this.username.sendKeys(username);
         this.password.sendKeys(password);
-        // hit Login button
+        // hit Login button:
         this.submitBtn.click();
     }
 

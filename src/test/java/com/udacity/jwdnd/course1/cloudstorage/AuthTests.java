@@ -139,7 +139,6 @@ class AuthTests {
 			e.printStackTrace();
 		}
 
-
 		// click "Back to login" to go back to /login:
 		signupPage.clickBackToLogin();
 
@@ -153,7 +152,7 @@ class AuthTests {
 		// currently in Login page
 		// simulate unauthorized user to click Login but fail:
 		loginPage = new LoginPage(driver);
-		loginPage.unauthorizeLogin("plora", "p@ssword");
+		loginPage.login("plora", "p@ssword");
 
 		// check if the title of the current page is Login:
 		assertEquals("Login", driver.getTitle());

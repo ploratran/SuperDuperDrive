@@ -2,15 +2,20 @@ package com.udacity.jwdnd.course1.cloudstorage;
 
 import com.udacity.jwdnd.course1.cloudstorage.pages.HomePage;
 import com.udacity.jwdnd.course1.cloudstorage.pages.LoginPage;
+import com.udacity.jwdnd.course1.cloudstorage.pages.ResultPage;
 import com.udacity.jwdnd.course1.cloudstorage.pages.SignupPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class NoteTests {
@@ -22,6 +27,7 @@ public class NoteTests {
     private static WebDriver driver;
     String baseURL;
     private HomePage homePage;
+    private ResultPage resultPage;
 
     @BeforeAll
     public static void beforeAll() {
@@ -48,7 +54,14 @@ public class NoteTests {
         signupPage.signup("Phuong", "Tran", "ploratran", "p@ssword");
 
         // navigate to login:
-        signupPage.clickBackToLogin();
+        driver.get(baseURL + "/login");
+
+        // try to wait 2000s:
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         // initialize object for LoginPage:
         LoginPage loginPage = new LoginPage(driver);
@@ -56,8 +69,64 @@ public class NoteTests {
 
         // currently logged in at this stage
         // initialize homepage page:
-        HomePage homePage = new HomePage(driver);
+        homePage = new HomePage(driver);
+
+        // try to wait 2000s:
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
+    /**
+     *  TEST 1:
+     *  Write a test that creates a note, and verifies it is displayed.
+     * */
+    @Test
+    public void addNewNote() {
 
+        // simulate user to click on Notes tab on nav bar:
+        homePage.clickNoteTab();
+
+        // try to wait 2000s:
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // simulate user to click on Add/Edit button:
+        homePage.clickAddNoteBtn();
+
+        // try to wait 2000s:
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // fill data and submit:
+        homePage.addNewNote("Test Note Title", "This is a test description");
+
+        // after successfully added new note, navigate to Result page:
+        // initialize new Result page object:
+        resultPage = new ResultPage(driver);
+
+        // try to wait 2000s:
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // navigate back to /home by click on "Here" link:
+        resultPage.clickHereBtn();
+
+        // this stage is currently back to homepage:
+        assertEquals("Home", driver.getTitle());
+
+        // click note tab again:
+        homePage.clickNoteTab();
+    }
 }
