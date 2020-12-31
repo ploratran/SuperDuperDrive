@@ -103,6 +103,18 @@ class AuthTests {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+
+		// after logout, navigate back to "/home":
+		driver.get(baseURL + "/home");
+		// verify that homepage is no longer accessible:
+		assertEquals("Login", driver.getTitle());
+
+		// try to wait 2000s:
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/** TEST 2:
