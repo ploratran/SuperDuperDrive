@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -56,13 +57,6 @@ public class NoteTests {
         // navigate to login:
         driver.get(baseURL + "/login");
 
-        // try to wait 2000s:
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         // initialize object for LoginPage:
         LoginPage loginPage = new LoginPage(driver);
         loginPage.login("ploratran", "p@ssword");
@@ -85,6 +79,7 @@ public class NoteTests {
      * */
     @Test
     public void addNewNote() {
+        WebDriverWait wait = new WebDriverWait(driver, 20);
 
         // simulate user to click on Notes tab on nav bar:
         homePage.clickNoteTab();
@@ -109,6 +104,13 @@ public class NoteTests {
         // fill data and submit:
         homePage.addNewNote("Test Note Title", "This is a test description");
 
+        // try to wait 2000s:
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         // after successfully added new note, navigate to Result page:
         // initialize new Result page object:
         resultPage = new ResultPage(driver);
@@ -128,5 +130,12 @@ public class NoteTests {
 
         // click note tab again:
         homePage.clickNoteTab();
+
+        // try to wait 2000s:
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

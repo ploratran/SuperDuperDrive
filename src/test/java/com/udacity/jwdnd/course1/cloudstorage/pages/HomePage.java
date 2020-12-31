@@ -25,7 +25,7 @@ public class HomePage {
     @FindBy(id = "note-description")
     private WebElement noteDescription;
 
-    @FindBy(id = "submit-btn")
+    @FindBy(id = "note-savechanges-btn")
     private WebElement submitBtn;
 
     // constructor:
@@ -47,10 +47,16 @@ public class HomePage {
 
     // method to add fill data of new note:
     public void addNewNote(String title, String description) {
+        // fill in data:
         noteTitle.sendKeys(title);
         noteDescription.sendKeys(description);
         // click on "Save Changes" to submit:
         submitBtn.click();
+    }
+
+    // verify that new note title is created:
+    public WebElement getNoteTitleText() {
+        return noteTitle;
     }
 
     // METHOD FOR LOGOUT:
