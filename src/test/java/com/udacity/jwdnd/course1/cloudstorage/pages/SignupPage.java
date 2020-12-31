@@ -24,6 +24,9 @@ public class SignupPage {
     @FindBy(tagName = "button")
     private WebElement signupBtn;
 
+    @FindBy(tagName = "label")
+    private WebElement backToLoginBtn;
+
     // constructor:
     public SignupPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -38,5 +41,9 @@ public class SignupPage {
         this.password.sendKeys(password);
         // hit Sign Up button:
         this.signupBtn.click();
+    }
+
+    public void clickBackToLogin() {
+        this.backToLoginBtn.click();
     }
 }

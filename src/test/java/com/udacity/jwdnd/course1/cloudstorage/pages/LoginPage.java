@@ -31,4 +31,8 @@ public class LoginPage {
         // hit Login button:
         this.submitBtn.click();
     }
+
+    public void unauthorizeLogin() {
+        this.submitBtn.click();
+    }
 }
