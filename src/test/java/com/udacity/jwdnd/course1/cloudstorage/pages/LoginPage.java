@@ -18,6 +18,12 @@ public class LoginPage {
     @FindBy(tagName = "button")
     private WebElement submitBtn;
 
+    @FindBy(id = "error-msg")
+    private WebElement unAuthorizedMsg;
+
+    @FindBy(id = "logout-msg")
+    private WebElement logoutMsg;
+
     // constructor:
     public LoginPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
@@ -25,14 +31,26 @@ public class LoginPage {
 
     // methods:
     public void login(String username, String password) {
-        // field in data:
+        // fill in data:
         this.username.sendKeys("ploratran");
         this.password.sendKeys("p@ssword");
         // hit Login button:
         this.submitBtn.click();
     }
 
-    public void unauthorizeLogin() {
+    public void unauthorizeLogin(String username, String password) {
+        // fill in data with unauthorized user info:
+        this.username.sendKeys(username);
+        this.password.sendKeys(password);
+        // hit Login button
         this.submitBtn.click();
+    }
+
+    public boolean isInvalid() {
+        return this.unAuthorizedMsg.isDisplayed();
+    }
+
+    public boolean isLoggedOut() {
+        return this.logoutMsg.isDisplayed();
     }
 }
