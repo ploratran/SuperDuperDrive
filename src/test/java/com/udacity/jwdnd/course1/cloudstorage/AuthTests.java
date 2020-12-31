@@ -50,11 +50,6 @@ class AuthTests {
 	 * */
 	@Test
 	public void testLoginLogout() {
-		// define data to fill in:
-		String firstname = "Phuong";
-		String lastname = "Tran";
-		String username = "ploratran";
-		String password = "p@ssword";
 
 		// navigate to /signup:
 		driver.get(baseURL + "/signup");
@@ -62,7 +57,7 @@ class AuthTests {
 		// initialize object of SignupPage
 		// call .signup() to simulate user's signup:
 		signupPage = new SignupPage(driver);
-		signupPage.signup(firstname, lastname, username, password);
+		signupPage.signup("Phuong", "Tran", "ploratran", "p@ssword");
 
 		// check if the current page title is Signup:
 		assertEquals("Sign Up", driver.getTitle());
@@ -80,7 +75,7 @@ class AuthTests {
 		// initialize object of LoginPage
 		loginPage = new LoginPage(driver);
 		// call .login() to simulate user's login:
-		loginPage.login(username, password);
+		loginPage.login("ploratran", "p@ssword");
 
 		// check if this page title is Home after successfully loggin in:
 		assertEquals("Home", driver.getTitle());
