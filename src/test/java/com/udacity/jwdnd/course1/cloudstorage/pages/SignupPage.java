@@ -1,5 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,20 +28,28 @@ public class SignupPage {
     @FindBy(tagName = "label")
     private WebElement backToLoginBtn;
 
+    private final WebDriver driver;
+
     // constructor:
     public SignupPage(WebDriver driver) {
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
     // methods:
     public void signup(String fname, String lname, String username, String password) {
         // field data:
-        this.firstname.sendKeys(fname);
-        this.lastname.sendKeys(lname);
-        this.username.sendKeys(username);
-        this.password.sendKeys(password);
+//        this.firstname.sendKeys(fname);
+//        this.lastname.sendKeys(lname);
+//        this.username.sendKeys(username);
+//        this.password.sendKeys(password);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + fname + "';", this.firstname);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + lname + "';", this.lastname);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + username + "';", this.username);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + password + "';", this.password);
         // hit Sign Up button:
-        this.signupBtn.click();
+//        this.signupBtn.click();
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", this.signupBtn);
     }
 
     public void clickBackToLogin() {

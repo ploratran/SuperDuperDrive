@@ -66,11 +66,11 @@ public class NoteTests {
         homePage = new HomePage(driver);
 
         // try to wait 2000s:
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**
@@ -85,42 +85,42 @@ public class NoteTests {
         homePage.clickNoteTab();
 
         // try to wait 2000s:
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         // simulate user to click on Add/Edit button:
         homePage.clickAddNoteBtn();
 
         // try to wait 2000s:
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         // fill data and submit:
         homePage.addNewNote("Test Note Title", "This is a test description");
 
         // try to wait 2000s:
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         // after successfully added new note, navigate to Result page:
         // initialize new Result page object:
         resultPage = new ResultPage(driver);
 
         // try to wait 2000s:
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         // navigate back to /home by click on "Here" link:
         resultPage.clickHereBtn();
@@ -132,12 +132,13 @@ public class NoteTests {
         homePage.clickNoteTab();
 
         assertEquals("Test Note Title", homePage.getNoteTitleText());
+        assertEquals("Test Description Title", homePage.getNoteDescriptionText());
 
         // try to wait 2000s:
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 }

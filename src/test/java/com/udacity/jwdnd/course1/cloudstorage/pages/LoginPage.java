@@ -1,5 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.pages;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,18 +25,24 @@ public class LoginPage {
     @FindBy(id = "logout-msg")
     private WebElement logoutMsg;
 
+    private final WebDriver driver;
+
     // constructor:
     public LoginPage(WebDriver driver) {
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
     // methods:
     public void login(String username, String password) {
         // fill in data:
-        this.username.sendKeys(username);
-        this.password.sendKeys(password);
+//        this.username.sendKeys(username);
+//        this.password.sendKeys(password);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + username + "';", this.username);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + password + "';", this.password);
         // hit Login button:
-        this.submitBtn.click();
+//        this.submitBtn.click();
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click;", this.submitBtn);
     }
 
     public boolean isInvalid() {
