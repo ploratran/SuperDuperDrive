@@ -1,5 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.pages;
 
+import com.udacity.jwdnd.course1.cloudstorage.services.EncryptionService;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -55,9 +56,7 @@ public class CredentialPage {
         PageFactory.initElements(driver, this);
     }
 
-    /**
-     * define methods
-     */
+    /** define methods */
 
     // method to simulate user to click on Credentials tab:
     public void clickCredTab() {

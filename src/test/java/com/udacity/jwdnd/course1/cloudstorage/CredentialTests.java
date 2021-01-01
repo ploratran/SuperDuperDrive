@@ -12,6 +12,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
+import java.security.SecureRandom;
+import java.util.Base64;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -63,8 +66,9 @@ public class CredentialTests {
         // currently logged in at this stage
         // initialize homepage page:
         credentialPage = new CredentialPage(driver);
-    }
 
+        encryptionService = new EncryptionService();
+    }
 
     /**
      *  TEST 1:
@@ -104,6 +108,13 @@ public class CredentialTests {
         // test if new credential url and username match:
         assertEquals("facebook.com", credentialPage.getUrlText());
         assertEquals("ploratran", credentialPage.getUsernameText());
-        assertEquals("p@ssword", credentialPage.getPasswordText());
+
+        // encrypt password when user adds new credential before store to DB:
+        SecureRandom random = new SecureRandom();
+        byte[] key = new byte[16];
+        random.nextBytes(key);
+        String encodedKey = Base64.getEncoder().encodeToString(key);
+
+        assertEquals(this.encryptionService.encryptValue("p@ssword", encodedKey), credentialPage.getPasswordText());
     }
 }
