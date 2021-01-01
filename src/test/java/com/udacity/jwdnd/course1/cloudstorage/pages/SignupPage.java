@@ -30,6 +30,7 @@ public class SignupPage {
 
     private final WebDriver driver;
 
+
     // constructor:
     public SignupPage(WebDriver driver) {
         this.driver = driver;
@@ -38,17 +39,14 @@ public class SignupPage {
 
     // methods:
     public void signup(String fname, String lname, String username, String password) {
+
         // field data:
-//        this.firstname.sendKeys(fname);
-//        this.lastname.sendKeys(lname);
-//        this.username.sendKeys(username);
-//        this.password.sendKeys(password);
         ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + fname + "';", this.firstname);
         ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + lname + "';", this.lastname);
         ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + username + "';", this.username);
         ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + password + "';", this.password);
+
         // hit Sign Up button:
-//        this.signupBtn.click();
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", this.signupBtn);
     }
 

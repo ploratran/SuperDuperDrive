@@ -97,8 +97,8 @@
                                    th:href="@{/home/note/delete/{noteId}(noteId=${note.noteId})}"
                                 > Delete </a>
                             </td>
-                            <th scope="row" th:id="noteTitle" th:text="${note.noteTitle}">Example Note Title</th>
-                            <td th:text="${note.noteDescription}">Example Note Description </td>
+                            <th scope="row" th:id="noteTitleText" th:text="${note.noteTitle}">Example Note Title</th>
+                            <td th:id="noteDescriptionText" th:text="${note.noteDescription}">Example Note Description </td>
                         </tr>
                         </tbody>
                     </table>
@@ -118,18 +118,18 @@
                                     <input type="hidden" name="noteId" id="note-id">
                                     <div class="form-group">
                                         <label for="note-title" class="col-form-label">Title</label>
-                                        <input type="text" name= "noteTitle" class="form-control" id="note-title" maxlength="20" required>
+                                        <input id="note-title" type="text" name= "noteTitle" class="form-control" maxlength="20" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="note-description" class="col-form-label">Description</label>
-                                        <textarea class="form-control" name="noteDescription" id="note-description" rows="5" maxlength="1000" required></textarea>
+                                        <textarea id="note-description" class="form-control" name="noteDescription" rows="5" maxlength="1000" required></textarea>
                                     </div>
                                     <button id="noteSubmit" type="submit" class="d-none"></button>
                                 </form>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" id ="note-savechanges-btn" onclick="$('#noteSubmit').click();">Save changes</button>
+                                <button id ="note-savechanges-btn" type="button" class="btn btn-primary" onclick="$('#noteSubmit').click();">Save changes</button>
                             </div>
                         </div>
                     </div>
@@ -139,7 +139,8 @@
 
             <!--      CREDENTIALS              -->
             <div class="tab-pane fade" id="nav-credentials" role="tabpanel" aria-labelledby="nav-credentials-tab">
-                <button style="margin: 0.25em;" type="button" class="btn btn-info float-right" onclick="showCredentialModal()">
+                <button  id="add-cred-btn" style="margin: 0.25em;" type="button"
+                         class="btn btn-info float-right" onclick="showCredentialModal()">
                     + Add a New Credential
                 </button>
 
@@ -165,9 +166,9 @@
                                    th:href="@{/home/credential/delete/{credentialId}(credentialId=${cred.credentialId})}"
                                 > Delete </a>
                             </td>
-                            <th scope="row" th:text="${cred.url}">Example Credential URL</th>
-                            <td th:text="${cred.username}">Example Credential Username</td>
-                            <td th:text="${cred.password}">Example Credential Password</td>
+                            <th scope="row" th:id="credUrlText" th:text="${cred.url}">Example Credential URL</th>
+                            <td th:id="credUsernameText" th:text="${cred.username}">Example Credential Username</td>
+                            <td th:id="credPasswordText" th:text="${cred.password}">Example Credential Password</td>
                         </tr>
                         </tbody>
                     </table>
@@ -187,23 +188,23 @@
                                       th:object="${newCredential}" method="POST">
                                     <input type="hidden" name="credentialId" id="credential-id">
                                     <div class="form-group">
-                                        <label for="note-title" class="col-form-label">URL</label>
-                                        <input type="text" name= "url" class="form-control" id="credential-url" maxlength="100" required>
+                                        <label for="credential-url" class="col-form-label">URL</label>
+                                        <input  id="credential-url" type="text" name= "url" class="form-control" maxlength="100" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="note-title" class="col-form-label">Username</label>
-                                        <input type="text" name= "username" class="form-control" id="credential-username" maxlength="30" required>
+                                        <label for="credential-username" class="col-form-label">Username</label>
+                                        <input id="credential-username" type="text" name= "username" class="form-control" maxlength="30" required>
                                     </div>
                                     <div class="form-group">
-                                        <label for="note-title" class="col-form-label">Password</label>
-                                        <input type="text" name= "password" class="form-control" id="credential-password" maxlength="30" required>
+                                        <label for="credential-password" class="col-form-label">Password</label>
+                                        <input id="credential-password" type="text" name= "password" class="form-control" maxlength="30" required>
                                     </div>
                                     <button id="credentialSubmit" type="submit" class="d-none"></button>
                                 </form>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" onclick="$('#credentialSubmit').click();">Save changes</button>
+                                <button type="button" id ="cred-savechanges-btn" class="btn btn-primary" onclick="$('#credentialSubmit').click();">Save changes</button>
                             </div>
                         </div>
                     </div>

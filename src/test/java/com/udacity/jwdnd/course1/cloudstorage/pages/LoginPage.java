@@ -28,21 +28,20 @@ public class LoginPage {
     private final WebDriver driver;
 
     // constructor:
-    public LoginPage(WebDriver driver) {
-        this.driver = driver;
+    public LoginPage(WebDriver driver)
+    {   this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
     // methods:
     public void login(String username, String password) {
+
         // fill in data:
-//        this.username.sendKeys(username);
-//        this.password.sendKeys(password);
         ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + username + "';", this.username);
         ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + password + "';", this.password);
+
         // hit Login button:
-//        this.submitBtn.click();
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click;", this.submitBtn);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", this.submitBtn);
     }
 
     public boolean isInvalid() {

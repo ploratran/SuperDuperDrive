@@ -1,6 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage;
 
-import com.udacity.jwdnd.course1.cloudstorage.pages.HomePage;
+import com.udacity.jwdnd.course1.cloudstorage.pages.NotePage;
 import com.udacity.jwdnd.course1.cloudstorage.pages.LoginPage;
 import com.udacity.jwdnd.course1.cloudstorage.pages.SignupPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -23,7 +23,7 @@ class AuthTests {
 
 	private SignupPage signupPage;
 	private LoginPage loginPage;
-	private HomePage homePage;
+	private NotePage homePage;
 
 	String baseURL;
 
@@ -82,7 +82,7 @@ class AuthTests {
 
 		// after successfully login, auto navigate to /home:
 		// initialize object for HomePage
-		homePage = new HomePage(driver);
+		homePage = new NotePage(driver);
 
 		// try to wait 2000s, then log out:
 		try {

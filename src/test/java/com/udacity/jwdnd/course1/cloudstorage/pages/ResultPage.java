@@ -22,8 +22,6 @@ public class ResultPage {
 
     // methods:
     public void clickHereBtn() {
-        // click to go back to /home:
-//        backHomeLink.click();
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", this.backHomeLink);
     }
 }
