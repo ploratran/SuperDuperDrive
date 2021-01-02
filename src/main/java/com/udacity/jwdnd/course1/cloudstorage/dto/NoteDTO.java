@@ -5,6 +5,8 @@ public class NoteDTO {
     private Integer noteId;
     private String noteTitle;
     private String noteDescription;
+
+    // constructor
     public NoteDTO() {}
 
     public Integer getNoteId() {

@@ -1,6 +1,8 @@
 package com.udacity.jwdnd.course1.cloudstorage;
 
+import com.udacity.jwdnd.course1.cloudstorage.model.Credential;
 import com.udacity.jwdnd.course1.cloudstorage.pages.*;
+import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
 import com.udacity.jwdnd.course1.cloudstorage.services.EncryptionService;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterAll;
@@ -9,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
@@ -21,7 +24,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CredentialTests {
 
     @LocalServerPort
-    private Integer port; // this port is the RANDOM_PORT
+    private Integer port; // this port is the RANDOM_PORT, or port of server
+
+    // define Credential Service variable
+    // in order to use method getCredentialById() to get Credential object
+    // from Credential object, use getKey() to get key for encryption:
+    @Autowired
+    private CredentialService credentialService;
 
     // initialize fields:
     private static WebDriver driver;
@@ -109,12 +118,10 @@ public class CredentialTests {
         assertEquals("facebook.com", credentialPage.getUrlText());
         assertEquals("ploratran", credentialPage.getUsernameText());
 
-        // encrypt password when user adds new credential before store to DB:
-        SecureRandom random = new SecureRandom();
-        byte[] key = new byte[16];
-        random.nextBytes(key);
-        String encodedKey = Base64.getEncoder().encodeToString(key);
+        // initialize Credential object:
+        // since this is a test, just get the very first value of data displayed on screen:
+        Credential credential = this.credentialService.getCredentialById(1);
 
-        assertEquals(this.encryptionService.encryptValue("p@ssword", encodedKey), credentialPage.getPasswordText());
+        assertEquals(this.encryptionService.encryptValue("p@ssword", credential.getKey()), credentialPage.getPasswordText());
     }
 }

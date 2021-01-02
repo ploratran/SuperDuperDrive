@@ -51,8 +51,8 @@ public class CredentialController {
 
         int currentUserId = this.userService.getUserById(auth.getName());
 
-        // create the credential variable that will be responsible for receiving the credDTO variable data
-
+        // create the credential variable that will be
+        // responsible for receiving the credDTO variable data:
         Credential credential = new Credential();
         // set new data of URL, username, password to Credential with
         // new data from Credential DTO:
