@@ -114,15 +114,20 @@
                                 </button>
                             </div>
                             <div class="modal-body">
+<<<<<<< HEAD
                                 <form action="#" th:action="@{/home/note/newNote}" th:object="${noteDTO}" method="POST">
                                     <input type="hidden" name="noteId" th:id="${noteId}" id="note-id">
+=======
+                                <form action="#" th:action="@{/home/note/newNote}" th:object="${newNote}" method="POST">
+                                    <input type="hidden" name="noteId" id="note-id">
+>>>>>>> parent of d1d34dd... define NoteDTO for note data transfer object with thymeleaf on frontend
                                     <div class="form-group">
                                         <label for="note-title" class="col-form-label">Title</label>
-                                        <input id="note-title" th:field="*{noteTitle}" type="text" name= "noteTitle" class="form-control" maxlength="20" required>
+                                        <input id="note-title" type="text" name= "noteTitle" class="form-control" maxlength="20" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="note-description" class="col-form-label">Description</label>
-                                        <textarea id="note-description" th:field="*{noteDescription}" class="form-control" name="noteDescription" rows="5" maxlength="1000" required></textarea>
+                                        <textarea id="note-description" class="form-control" name="noteDescription" rows="5" maxlength="1000" required></textarea>
                                     </div>
                                     <button id="noteSubmit" type="submit" class="d-none"></button>
                                 </form>
@@ -135,6 +140,7 @@
                     </div>
                 </div>
             </div>
+
 
             <!--      CREDENTIALS              -->
             <div class="tab-pane fade" id="nav-credentials" role="tabpanel" aria-labelledby="nav-credentials-tab">

@@ -12,9 +12,10 @@ public class FileDTO {
     private MultipartFile file;
 
     // constructor:
-    public FileDTO () {}
+    public FileDTO () {
 
-    // setter and getter:
+    }
+
     public MultipartFile getFile() {
         return file;
     }
