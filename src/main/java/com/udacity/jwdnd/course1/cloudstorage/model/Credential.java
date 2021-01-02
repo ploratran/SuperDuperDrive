@@ -9,6 +9,10 @@ public class Credential {
     private String password;
     private Integer userId;
 
+    // initialize constructor for CredentialDTO
+    // so that we can map to CredentialDTO data:
+    public Credential() {}
+
     // constructor:
     public Credential(Integer credentialId, String url, String username, String key, String password, Integer userId) {
         this.credentialId = credentialId;

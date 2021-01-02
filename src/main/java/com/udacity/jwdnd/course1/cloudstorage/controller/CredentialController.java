@@ -45,15 +45,24 @@ public class CredentialController {
 
     // ADD new credential to CredentialDB:
     @PostMapping("/home/credential/newCredential")
-    public String postNewCredential(@ModelAttribute("newCredential") Credential cred, Model model, Authentication auth) {
+    public String postNewCredential(@ModelAttribute("credentialDTO") CredentialDTO credDTO, Model model, Authentication auth) {
 
         String errMsg = null;
 
         int currentUserId = this.userService.getUserById(auth.getName());
 
+        // create the credential variable that will be responsible for receiving the credDTO variable data
+
+        Credential credential = new Credential();
+        // set new data of URL, username, password to Credential with
+        // new data from Credential DTO:
+        credential.setUrl(credDTO.getCredentialUrl());
+        credential.setUsername(credDTO.getCredentialUsername());
+        credential.setPassword(credDTO.getCredentialPassword());
+
         // if there are no err, add new credential based on currentUserId:
         if (errMsg == null) {
-            cred.setUserId(currentUserId);
+            credential.setUserId(currentUserId);
 
             // encrypt password when user adds new credential before store to DB:
             SecureRandom random = new SecureRandom();
@@ -62,14 +71,14 @@ public class CredentialController {
             String encodedKey = Base64.getEncoder().encodeToString(key);
 
             // set new encoded key and encrypted password to Credential Class Model:
-            cred.setKey(encodedKey);
+            credential.setKey(encodedKey);
 
             // set encrypted password to Credential Class Model:
-            String encryptedPassword = this.encryptionService.encryptValue(cred.getPassword(), cred.getKey());
-            cred.setPassword(encryptedPassword);
+            String encryptedPassword = this.encryptionService.encryptValue(credential.getPassword(), credential.getKey());
+            credential.setPassword(encryptedPassword);
 
             // add new credential to Credential DB:
-            int currentCredId = this.credentialService.addCredential(cred);
+            int currentCredId = this.credentialService.addCredential(credential);
 
             // check if there are errors adding new credential, display error:
             if (currentCredId < 0) {
