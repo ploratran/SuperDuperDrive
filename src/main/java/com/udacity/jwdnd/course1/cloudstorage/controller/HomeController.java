@@ -1,6 +1,7 @@
 package com.udacity.jwdnd.course1.cloudstorage.controller;
 
 import com.udacity.jwdnd.course1.cloudstorage.dto.FileDTO;
+import com.udacity.jwdnd.course1.cloudstorage.dto.NoteDTO;
 import com.udacity.jwdnd.course1.cloudstorage.model.Credential;
 import com.udacity.jwdnd.course1.cloudstorage.model.File;
 import com.udacity.jwdnd.course1.cloudstorage.model.Note;
@@ -45,6 +46,12 @@ public class HomeController {
     @ModelAttribute("fileDTO")
     public FileDTO getFileDTO() {
         return new FileDTO();
+    }
+
+    // include NoteDTO()
+    @ModelAttribute("noteDTO")
+    public NoteDTO getNoteDTO() {
+        return new NoteDTO();
     }
 
     @GetMapping
