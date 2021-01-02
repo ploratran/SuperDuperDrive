@@ -184,23 +184,25 @@
                                 </button>
                             </div>
                             <div class="modal-body">
+
                                 <form action="#" th:action="@{/home/credential/newCredential}"
-                                      th:object="${newCredential}" method="POST">
-                                    <input type="hidden" name="credentialId" id="credential-id">
+                                      th:object="${credentialDTO}" method="POST">
+                                    <input th:field="*{credentialID}" type="hidden" name="credentialId" id="credential-id">
                                     <div class="form-group">
                                         <label for="credential-url" class="col-form-label">URL</label>
-                                        <input  id="credential-url" type="text" name= "url" class="form-control" maxlength="100" required>
+                                        <input th:field="*{credentialUrl}" id="credential-url" type="text" name= "url" class="form-control" maxlength="100" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="credential-username" class="col-form-label">Username</label>
-                                        <input id="credential-username" type="text" name= "username" class="form-control" maxlength="30" required>
+                                        <input th:field="*{credentialUsername}" id="credential-username" type="text" name= "username" class="form-control" maxlength="30" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="credential-password" class="col-form-label">Password</label>
-                                        <input id="credential-password" type="text" name= "password" class="form-control" maxlength="30" required>
+                                        <input th:field="*{credentialPassword}" id="credential-password" type="text" name= "password" class="form-control" maxlength="30" required>
                                     </div>
                                     <button id="credentialSubmit" type="submit" class="d-none"></button>
                                 </form>
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

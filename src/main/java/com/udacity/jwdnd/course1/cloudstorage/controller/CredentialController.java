@@ -1,5 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.controller;
 
+import com.udacity.jwdnd.course1.cloudstorage.dto.CredentialDTO;
 import com.udacity.jwdnd.course1.cloudstorage.model.Credential;
 import com.udacity.jwdnd.course1.cloudstorage.services.CredentialService;
 import com.udacity.jwdnd.course1.cloudstorage.services.EncryptionService;
@@ -30,6 +31,11 @@ public class CredentialController {
         this.userService = uService;
         this.encryptionService = eService;
         this.credentialService = cService;
+    }
+
+    @ModelAttribute("credentialDTO")
+    public CredentialDTO getCredentialDTO() {
+        return new CredentialDTO();
     }
 
     @PostConstruct()

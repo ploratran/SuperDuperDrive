@@ -1,5 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.controller;
 
+import com.udacity.jwdnd.course1.cloudstorage.dto.CredentialDTO;
 import com.udacity.jwdnd.course1.cloudstorage.dto.FileDTO;
 import com.udacity.jwdnd.course1.cloudstorage.dto.NoteDTO;
 import com.udacity.jwdnd.course1.cloudstorage.model.Credential;
@@ -52,6 +53,11 @@ public class HomeController {
     @ModelAttribute("noteDTO")
     public NoteDTO getNoteDTO() {
         return new NoteDTO();
+    }
+
+    @ModelAttribute("credentialDTO")
+    public CredentialDTO getCredentialDTO() {
+        return new CredentialDTO();
     }
 
     @GetMapping
