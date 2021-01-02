@@ -62,13 +62,6 @@ class AuthTests {
 		// check if the current page title is Signup:
 		assertEquals("Sign Up", driver.getTitle());
 
-		// try to wait 2000s, then log out:
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
 		// after signup, navigate to /login:
 		driver.get(baseURL + "/login");
 
@@ -84,37 +77,16 @@ class AuthTests {
 		// initialize object for HomePage
 		homePage = new NotePage(driver);
 
-		// try to wait 2000s, then log out:
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
 		// simulate user to click logout to be logged out:
 		homePage.logout();
 
 		// check if the "You have been logged out" message displayed after logout:
 		assertTrue(loginPage.isLoggedOut());
 
-		// try to wait 2000s:
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
 		// after logout, navigate back to "/home":
 		driver.get(baseURL + "/home");
 		// verify that homepage is no longer accessible:
 		assertEquals("Login", driver.getTitle());
-
-		// try to wait 2000s:
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 
 	/** TEST 2:

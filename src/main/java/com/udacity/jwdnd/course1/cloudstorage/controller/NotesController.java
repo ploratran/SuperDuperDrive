@@ -1,5 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.controller;
 
+import com.udacity.jwdnd.course1.cloudstorage.dto.NoteDTO;
 import com.udacity.jwdnd.course1.cloudstorage.model.Note;
 import com.udacity.jwdnd.course1.cloudstorage.services.NotesService;
 import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
@@ -24,6 +25,12 @@ public class NotesController {
     public NotesController(UserService uService, NotesService nService) {
         this.userService = uService;
         this.noteService = nService;
+    }
+
+    // bind noteDTO in frontend:
+    @ModelAttribute("noteDTO")
+    public NoteDTO getNoteDTO() {
+        return new NoteDTO();
     }
 
     @PostConstruct

@@ -114,20 +114,15 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-<<<<<<< HEAD
                                 <form action="#" th:action="@{/home/note/newNote}" th:object="${noteDTO}" method="POST">
-                                    <input type="hidden" name="noteId" th:id="${noteId}" id="note-id">
-=======
-                                <form action="#" th:action="@{/home/note/newNote}" th:object="${newNote}" method="POST">
-                                    <input type="hidden" name="noteId" id="note-id">
->>>>>>> parent of d1d34dd... define NoteDTO for note data transfer object with thymeleaf on frontend
+                                    <input th:field="*{noteId}" type="hidden" name="noteId" id="note-id">
                                     <div class="form-group">
                                         <label for="note-title" class="col-form-label">Title</label>
-                                        <input id="note-title" type="text" name= "noteTitle" class="form-control" maxlength="20" required>
+                                        <input th:field="*{noteTitle}" type="text" name= "noteTitle" class="form-control" id="note-title" maxlength="20" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="note-description" class="col-form-label">Description</label>
-                                        <textarea id="note-description" class="form-control" name="noteDescription" rows="5" maxlength="1000" required></textarea>
+                                        <textarea th:field="*{noteDescription}" class="form-control" name="noteDescription" id="note-description" rows="5" maxlength="1000" required></textarea>
                                     </div>
                                     <button id="noteSubmit" type="submit" class="d-none"></button>
                                 </form>

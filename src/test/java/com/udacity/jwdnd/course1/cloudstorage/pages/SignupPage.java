@@ -30,7 +30,6 @@ public class SignupPage {
 
     private final WebDriver driver;
 
-
     // constructor:
     public SignupPage(WebDriver driver) {
         this.driver = driver;
