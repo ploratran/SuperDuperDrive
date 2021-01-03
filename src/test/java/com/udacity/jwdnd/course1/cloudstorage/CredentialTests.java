@@ -9,13 +9,17 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
+import java.util.concurrent.ExecutionException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CredentialTests {
@@ -154,5 +158,32 @@ public class CredentialTests {
         // use EncryptionService to use decryptValue() to get unencrypted pass
         // then compare with currently encrypted password:
         assertEquals(this.encryptionService.encryptValue("newP@ssword", credential.getKey()), credentialPage.getPasswordText());
+    }
+
+    /**
+     * TEST 3:
+     * Write a test that deletes a note
+     * and verifies that the note is no longer displayed.
+     * */
+    @Test
+    public void deleteCredential() {
+
+        // simulate user to click on "Delete button"
+        credentialPage.clickDeleteBtn();
+
+        // after successfully added new note, navigate to Result page:
+        // initialize new Result page object:
+        resultPage = new ResultPage(driver);
+        // navigate back to /home by click on "Here" link:
+        resultPage.clickHereBtn();
+
+        // simulate user to click on Notes tab:
+        credentialPage.clickCredTab();
+
+        // test there should be no note data on homepage:
+        // use assertThrows() with NoSuchElementException.class to test data does not exist:
+        assertThrows(NoSuchElementException.class, () -> {
+            credentialPage.getUsernameText();
+        });
     }
 }

@@ -79,6 +79,11 @@ public class CredentialPage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", this.editBtn);
     }
 
+    // method to click on Delete button:
+    public void clickDeleteBtn() {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", this.deleteBtn);
+    }
+
     // method to fill data to add new credentials:
     public void fillCredentialData(String url, String username, String password) {
         // fill in data:
