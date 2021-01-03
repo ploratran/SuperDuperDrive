@@ -67,17 +67,56 @@ public class NoteTests {
     }
 
     /**
+     * TEST 2:
+     * Write a test that edits an existing note
+     * and verifies that the changes are displayed.
+     * */
+    @Test
+    public void editNote() {
+
+        // simulate user to click on Notes tab:
+        homePage.clickNoteTab();
+        // add new note so data can display on homepage:
+        homePage.addNewNote("Test Title", "Test Description");
+
+        // after successfully added new note, navigate to Result page:
+        // initialize new Result page object:
+        resultPage = new ResultPage(driver);
+        // navigate back to /home by click on "Here" link:
+        resultPage.clickHereBtn();
+
+        // simulate user to click on Notes tab:
+        homePage.clickNoteTab();
+
+        // simulate user to click on "Edit" button:
+        homePage.clickEditBtn();
+        // simulate user to editing note with new data:
+        homePage.editNote("New Title", "New Description");
+
+        // after successfully added new note, navigate to Result page:
+        // initialize new Result page object:
+        resultPage = new ResultPage(driver);
+        // navigate back to /home by click on "Here" link:
+        resultPage.clickHereBtn();
+
+        // simulate user to click on Notes tab:
+        homePage.clickNoteTab();
+
+        // test if new note's title and description match:
+        assertEquals("New Title", homePage.getNoteTitleText());
+        assertEquals("New Description", homePage.getNoteDescriptionText());
+    }
+
+    /**
      *  TEST 1:
      *  Write a test that creates a note, and verifies it is displayed.
      *  Test if newly added note is displayed with same title and description in Home
      * */
     @Test
     public void addNewNote() {
-        WebDriverWait wait = new WebDriverWait(driver, 20);
 
         // simulate user to click on Notes tab on nav bar:
         homePage.clickNoteTab();
-
         // simulate user to click on Add/Edit button:
         homePage.clickAddNoteBtn();
 
@@ -87,7 +126,6 @@ public class NoteTests {
         // after successfully added new note, navigate to Result page:
         // initialize new Result page object:
         resultPage = new ResultPage(driver);
-
         // navigate back to /home by click on "Here" link:
         resultPage.clickHereBtn();
 

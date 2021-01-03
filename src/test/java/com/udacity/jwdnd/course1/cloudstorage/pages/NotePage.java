@@ -39,6 +39,9 @@ public class NotePage {
     @FindBy(id = "note-savechanges-btn")
     private WebElement submitBtn;
 
+    @FindBy(id = "note-editBtn")
+    private WebElement editNoteBtn;
+
     // driver:
     private final WebDriver driver;
 
@@ -60,6 +63,11 @@ public class NotePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", this.addNoteBtn);
     }
 
+    // method to click Edit button:
+    public void clickEditBtn() {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", this.editNoteBtn);
+    }
+
     // method to fill data of new note:
     public void addNewNote(String title, String description) {
         // fill in data:
@@ -67,6 +75,16 @@ public class NotePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + description + "';", this.noteDescription);
 
         // click on "Save Changes" to submit:
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", this.submitBtn);
+    }
+
+    // method to fill data with modifying data for test editing note:
+    public void editNote(String title, String description) {
+        // editing data:
+        ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + title + "';", this.noteTitle);
+        ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + description + "';", this.noteDescription);
+
+        // click "Save changes" to submit:
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", this.submitBtn);
     }
 

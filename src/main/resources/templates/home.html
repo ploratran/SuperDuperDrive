@@ -90,7 +90,7 @@
                         <tbody>
                         <tr th:each="note:${notes}">
                             <td>
-                                <button type="button" class="btn btn-success"
+                                <button type="button" class="btn btn-success" id="note-editBtn"
                                         th:onclick="javascript: showNoteModal([[${note.noteId}]],[[${note.title}]], [[${note.description}]])"
                                 > Edit </button>
                                 <a class="btn btn-danger"
