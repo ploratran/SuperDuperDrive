@@ -20,13 +20,15 @@ public interface CredentialMapper {
     // UPDATE/EDIT a new credential by credentialId:
     @Update("UPDATE CREDENTIALS SET url=#{url}, username=#{username}, key=#{key}, password=#{password} " +
     "WHERE (credentialid=#{credentialId})")
-    int updateCredentialById(Credential credentialId);
+    int updateCredentialById(Credential credential);
 
     // DELETE a credential by credentialId:
     @Delete("DELETE FROM CREDENTIALS WHERE credentialid=#{credentialId}")
     int deleteCredentialById(int credentialId);
 
-    // GET userId and url from Credential DB:
+    // GET a credential by its credentialId
+    // use in CredentialController to retrieve a credential
+    // in order to decrypt a password:
     @Select("SELECT * FROM CREDENTIALS WHERE credentialid = #{credentialId}")
     Credential getCredentialById(int credentialId);
 }

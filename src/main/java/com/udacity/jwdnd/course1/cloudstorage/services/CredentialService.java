@@ -4,6 +4,7 @@ import com.udacity.jwdnd.course1.cloudstorage.mapper.CredentialMapper;
 import com.udacity.jwdnd.course1.cloudstorage.model.Credential;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
@@ -16,6 +17,11 @@ public class CredentialService {
         this.credMapper = cMapper;
     }
 
+    /** methods: */
+    @PostConstruct
+    public void postConstruct() {
+        System.out.println("Creating Credential Service. ");
+    }
     // GET all creds from Cred DB by userId to use in CredController:
     public List<Credential> getAllCredentials(int userId) {
         return this.credMapper.findCredByUser(userId);
