@@ -42,6 +42,9 @@ public class NotePage {
     @FindBy(id = "note-editBtn")
     private WebElement editNoteBtn;
 
+    @FindBy(id = "note-deleteBtn")
+    private WebElement deleteNoteBtn;
+
     // driver:
     private final WebDriver driver;
 
@@ -68,23 +71,18 @@ public class NotePage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", this.editNoteBtn);
     }
 
-    // method to fill data of new note:
-    public void addNewNote(String title, String description) {
+    // method to click on Delete button:
+    public void clickDeleteBtn() {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", this.deleteNoteBtn);
+    }
+
+    // method to fill data for note. Use both for Add and Edit Test:
+    public void fillNoteData(String title, String description) {
         // fill in data:
         ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + title + "';", this.noteTitle);
         ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + description + "';", this.noteDescription);
 
         // click on "Save Changes" to submit:
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", this.submitBtn);
-    }
-
-    // method to fill data with modifying data for test editing note:
-    public void editNote(String title, String description) {
-        // editing data:
-        ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + title + "';", this.noteTitle);
-        ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + description + "';", this.noteDescription);
-
-        // click "Save changes" to submit:
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", this.submitBtn);
     }
 

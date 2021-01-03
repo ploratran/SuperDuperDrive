@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
@@ -26,7 +25,7 @@ public class NoteTests {
     // initialize fields:
     private static WebDriver driver;
     String baseURL;
-    private NotePage homePage;
+    private NotePage notePage;
     private ResultPage resultPage;
 
     @BeforeAll
@@ -62,13 +61,15 @@ public class NoteTests {
 
         // currently logged in at this stage
         // initialize homepage page:
-        homePage = new NotePage(driver);
+        notePage = new NotePage(driver);
 
         /** add a new note so that we can test for add/edit/delete at same time: */
         // simulate user to click on Notes tab:
-        homePage.clickNoteTab();
-        // add new note so data can display on homepage:
-        homePage.addNewNote("Test Title", "Test Description");
+        notePage.clickNoteTab();
+        // simulate user to click "Add/Edit a Note" button to add new note:
+        notePage.clickAddNoteBtn();
+        // fill in data to add a new note:
+        notePage.fillNoteData("Test Title", "Test Description");
 
         // after successfully added new note, navigate to Result page:
         // initialize new Result page object:
@@ -77,7 +78,31 @@ public class NoteTests {
         resultPage.clickHereBtn();
 
         // simulate user to click on Notes tab:
-        homePage.clickNoteTab();
+        notePage.clickNoteTab();
+    }
+
+    /**
+     * TEST 3:
+     * Write a test that deletes a note
+     * and verifies that the note is no longer displayed.
+     * */
+    @Test
+    public void deleteNote() {
+
+        // simulate user to click on "Delete button"
+        notePage.clickDeleteBtn();
+
+        // after successfully added new note, navigate to Result page:
+        // initialize new Result page object:
+        resultPage = new ResultPage(driver);
+        // navigate back to /home by click on "Here" link:
+        resultPage.clickHereBtn();
+
+        // simulate user to click on Notes tab:
+        notePage.clickNoteTab();
+
+        // test there should be no note data on homepage:
+        assertEquals(null, notePage.getNoteTitleText());
     }
 
     /**
@@ -89,8 +114,8 @@ public class NoteTests {
     public void addNewNote() {
 
         // test if new note's title and description match:
-        assertEquals("Test Title", homePage.getNoteTitleText());
-        assertEquals("Test Description", homePage.getNoteDescriptionText());
+        assertEquals("Test Title", notePage.getNoteTitleText());
+        assertEquals("Test Description", notePage.getNoteDescriptionText());
     }
 
     /**
@@ -102,9 +127,9 @@ public class NoteTests {
     public void editNote() {
 
         // simulate user to click on "Edit" button:
-        homePage.clickEditBtn();
+        notePage.clickEditBtn();
         // simulate user to editing note with new data:
-        homePage.editNote("New Title", "New Description");
+        notePage.fillNoteData("New Title", "New Description");
 
         // after successfully added new note, navigate to Result page:
         // initialize new Result page object:
@@ -113,11 +138,11 @@ public class NoteTests {
         resultPage.clickHereBtn();
 
         // simulate user to click on Notes tab:
-        homePage.clickNoteTab();
+        notePage.clickNoteTab();
 
         // test if new note's title and description match:
-        assertEquals("New Title", homePage.getNoteTitleText());
-        assertEquals("New Description", homePage.getNoteDescriptionText());
+        assertEquals("New Title", notePage.getNoteTitleText());
+        assertEquals("New Description", notePage.getNoteDescriptionText());
     }
 
 }
