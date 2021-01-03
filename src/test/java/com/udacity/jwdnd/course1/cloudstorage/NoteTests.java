@@ -64,16 +64,7 @@ public class NoteTests {
         // initialize homepage page:
         homePage = new NotePage(driver);
 
-    }
-
-    /**
-     * TEST 2:
-     * Write a test that edits an existing note
-     * and verifies that the changes are displayed.
-     * */
-    @Test
-    public void editNote() {
-
+        /** add a new note so that we can test for add/edit/delete at same time: */
         // simulate user to click on Notes tab:
         homePage.clickNoteTab();
         // add new note so data can display on homepage:
@@ -87,6 +78,28 @@ public class NoteTests {
 
         // simulate user to click on Notes tab:
         homePage.clickNoteTab();
+    }
+
+    /**
+     *  TEST 1:
+     *  Write a test that creates a note, and verifies it is displayed.
+     *  Test if newly added note is displayed with same title and description in Home
+     * */
+    @Test
+    public void addNewNote() {
+
+        // test if new note's title and description match:
+        assertEquals("Test Title", homePage.getNoteTitleText());
+        assertEquals("Test Description", homePage.getNoteDescriptionText());
+    }
+
+    /**
+     * TEST 2:
+     * Write a test that edits an existing note
+     * and verifies that the changes are displayed.
+     * */
+    @Test
+    public void editNote() {
 
         // simulate user to click on "Edit" button:
         homePage.clickEditBtn();
@@ -107,37 +120,4 @@ public class NoteTests {
         assertEquals("New Description", homePage.getNoteDescriptionText());
     }
 
-    /**
-     *  TEST 1:
-     *  Write a test that creates a note, and verifies it is displayed.
-     *  Test if newly added note is displayed with same title and description in Home
-     * */
-    @Test
-    public void addNewNote() {
-
-        // simulate user to click on Notes tab on nav bar:
-        homePage.clickNoteTab();
-        // simulate user to click on Add/Edit button:
-        homePage.clickAddNoteBtn();
-
-        // fill data and submit:
-        homePage.addNewNote("Test Note Title", "This is a test description");
-
-        // after successfully added new note, navigate to Result page:
-        // initialize new Result page object:
-        resultPage = new ResultPage(driver);
-        // navigate back to /home by click on "Here" link:
-        resultPage.clickHereBtn();
-
-        // at this stage, user is currently back to homepage:
-        // check if page title is "Home":
-        assertEquals("Home", driver.getTitle());
-
-        // click Note tab again:
-        homePage.clickNoteTab();
-
-        // test if new note's title and description match:
-        assertEquals("Test Note Title", homePage.getNoteTitleText());
-        assertEquals("This is a test description", homePage.getNoteDescriptionText());
-    }
 }
