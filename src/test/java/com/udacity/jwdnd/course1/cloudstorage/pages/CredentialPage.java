@@ -69,7 +69,7 @@ public class CredentialPage {
     }
 
     // method to fill data to add new credentials:
-    public void addNewCredential(String url, String username, String password) {
+    public void fillCredentialData(String url, String username, String password) {
         // fill in data:
         ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + url + "';", this.credentialUrl);
         ((JavascriptExecutor) driver).executeScript("arguments[0].value='" + username + "';", this.credentialUsername);

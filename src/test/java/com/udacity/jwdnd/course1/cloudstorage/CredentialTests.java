@@ -15,9 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 
-import java.security.SecureRandom;
-import java.util.Base64;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -35,10 +32,8 @@ public class CredentialTests {
     // initialize fields:
     private static WebDriver driver;
     String baseURL;
-    private NotePage homePage;
     private CredentialPage credentialPage;
     private ResultPage resultPage;
-
     private EncryptionService encryptionService;
 
     @BeforeAll
@@ -73,20 +68,12 @@ public class CredentialTests {
         loginPage.login("ploratran", "p@ssword");
 
         // currently logged in at this stage
+        // initialize Encryption service to encrypt/decrypt password
+        // inside add credential and edit credential:
+        encryptionService = new EncryptionService();
+
         // initialize homepage page:
         credentialPage = new CredentialPage(driver);
-
-        encryptionService = new EncryptionService();
-    }
-
-    /**
-     *  TEST 1:
-     *  Write a test that creates a set of credentials,
-     *  verifies that they are displayed,
-     *  and verifies that the displayed password is encrypted.
-     * */
-    @Test
-    public void addNewCredential() {
 
         // test that user can successfully login to /home page:
         assertEquals("Home", driver.getTitle());
@@ -98,7 +85,7 @@ public class CredentialTests {
         credentialPage.clickAddCredBtn();
 
         // simulate user to add new data to create add credential:
-        credentialPage.addNewCredential("facebook.com", "ploratran", "p@ssword");
+        credentialPage.fillCredentialData("facebook.com", "ploratran", "p@ssword");
 
         // after successfully added new credential, navigate to Result page
         // initialize new Result page object:
@@ -114,6 +101,17 @@ public class CredentialTests {
         // simulate user to click on Credentials tab again:
         credentialPage.clickCredTab();
 
+    }
+
+    /**
+     *  TEST 1:
+     *  Write a test that creates a set of credentials,
+     *  verifies that they are displayed,
+     *  and verifies that the displayed password is encrypted.
+     * */
+    @Test
+    public void addNewCredential() {
+
         // test if new credential url and username match:
         assertEquals("facebook.com", credentialPage.getUrlText());
         assertEquals("ploratran", credentialPage.getUsernameText());
@@ -121,7 +119,6 @@ public class CredentialTests {
         // initialize Credential object:
         // since this is a test, just get the very first value of data displayed on screen:
         Credential credential = this.credentialService.getCredentialById(1);
-
         assertEquals(this.encryptionService.encryptValue("p@ssword", credential.getKey()), credentialPage.getPasswordText());
     }
 }
