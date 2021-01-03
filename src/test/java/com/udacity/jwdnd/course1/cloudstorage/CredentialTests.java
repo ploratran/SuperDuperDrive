@@ -98,6 +98,25 @@ public class CredentialTests {
     }
 
     /**
+     *  TEST 1:
+     *  Write a test that creates a set of credentials,
+     *  verifies that they are displayed,
+     *  and verifies that the displayed password is encrypted.
+     * */
+    @Test
+    public void addNewCredential() {
+
+        // initialize Credential object:
+        // since this is a test, just get the very first value of data displayed on screen:
+        Credential credential = this.credentialService.getCredentialById(1);
+
+        // test if new credential url, username, and password match:
+        assertEquals("facebook.com", credentialPage.getUrlText());
+        assertEquals("ploratran", credentialPage.getUsernameText());
+        assertEquals(this.encryptionService.encryptValue("p@ssword", credential.getKey()), credentialPage.getPasswordText());
+    }
+
+    /**
      * TEST 2:
      *  Write a test that views an existing set of credentials,
      *  verifies that the viewable password is unencrypted,
@@ -108,8 +127,8 @@ public class CredentialTests {
         // simulate user to click on "Edit" button:
         credentialPage.clickEditBtn();
 
-        // write test to verify the viewable password is unencrypted:
-//        assertEquals("p@ssword", credentialPage.getUnencryptedPassword());
+        // TODO: Write test to verify the viewable password is unencrypted:
+        // assertEquals("p@ssword", credentialPage.getUnencryptedPassword());
 
         // simulate user to modify existing data to edit credential:
         credentialPage.fillCredentialData("instagram.com", "haphuong", "newP@ssword");
@@ -135,24 +154,5 @@ public class CredentialTests {
         // use EncryptionService to use decryptValue() to get unencrypted pass
         // then compare with currently encrypted password:
         assertEquals(this.encryptionService.encryptValue("newP@ssword", credential.getKey()), credentialPage.getPasswordText());
-    }
-
-    /**
-     *  TEST 1:
-     *  Write a test that creates a set of credentials,
-     *  verifies that they are displayed,
-     *  and verifies that the displayed password is encrypted.
-     * */
-    @Test
-    public void addNewCredential() {
-
-        // initialize Credential object:
-        // since this is a test, just get the very first value of data displayed on screen:
-        Credential credential = this.credentialService.getCredentialById(1);
-
-        // test if new credential url, username, and password match:
-        assertEquals("facebook.com", credentialPage.getUrlText());
-        assertEquals("ploratran", credentialPage.getUsernameText());
-        assertEquals(this.encryptionService.encryptValue("p@ssword", credential.getKey()), credentialPage.getPasswordText());
     }
 }
