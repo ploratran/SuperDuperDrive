@@ -47,6 +47,12 @@ public class CredentialPage {
     @FindBy(id = "cred-savechanges-btn")
     private WebElement submitBtn;
 
+    @FindBy(id = "cred-EditBtn")
+    private WebElement editBtn;
+
+    @FindBy(id = "cred-DeleteBtn")
+    private WebElement deleteBtn;
+
     // driver:
     private final WebDriver driver;
 
@@ -66,6 +72,11 @@ public class CredentialPage {
     // method to click on Add New Credential button:
     public void clickAddCredBtn() {
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", this.addCredBtn);
+    }
+
+    // method to click on Edit button:
+    public void clickEditBtn() {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", this.editBtn);
     }
 
     // method to fill data to add new credentials:
@@ -89,7 +100,14 @@ public class CredentialPage {
     }
 
     // verify that new credential's password is created:
+    // this should be the value of ENCRYPTED password:
     public String getPasswordText() {
         return credentialPasswordText.getAttribute("innerHTML");
     }
+
+    // get unencrypted password:
+    public String getUnencryptedPassword() {
+        return this.credentialPassword.getText();
+    }
+
 }

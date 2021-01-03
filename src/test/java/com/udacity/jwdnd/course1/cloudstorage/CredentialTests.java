@@ -75,12 +75,8 @@ public class CredentialTests {
         // initialize homepage page:
         credentialPage = new CredentialPage(driver);
 
-        // test that user can successfully login to /home page:
-        assertEquals("Home", driver.getTitle());
-
         // simulate user to click on Credentials tab on nav bar:
         credentialPage.clickCredTab();
-
         // simulate user to click on Add new credential button:
         credentialPage.clickAddCredBtn();
 
@@ -90,7 +86,6 @@ public class CredentialTests {
         // after successfully added new credential, navigate to Result page
         // initialize new Result page object:
         resultPage = new ResultPage(driver);
-
         // navigate back to /home by click on "here" button:
         resultPage.clickHereBtn();
 
@@ -100,7 +95,46 @@ public class CredentialTests {
 
         // simulate user to click on Credentials tab again:
         credentialPage.clickCredTab();
+    }
 
+    /**
+     * TEST 2:
+     *  Write a test that views an existing set of credentials,
+     *  verifies that the viewable password is unencrypted,
+     *  edits the credentials, and verifies that the changes are displayed.
+     * */
+    @Test
+    public void editCredential() {
+        // simulate user to click on "Edit" button:
+        credentialPage.clickEditBtn();
+
+        // write test to verify the viewable password is unencrypted:
+//        assertEquals("p@ssword", credentialPage.getUnencryptedPassword());
+
+        // simulate user to modify existing data to edit credential:
+        credentialPage.fillCredentialData("instagram.com", "haphuong", "newP@ssword");
+
+        // after successfully added new credential, navigate to Result page
+        // initialize new Result page object:
+        resultPage = new ResultPage(driver);
+        // navigate back to /home by click on "here" button:
+        resultPage.clickHereBtn();
+
+        // test if page title is "Home":
+        assertEquals("Home", driver.getTitle());
+
+        // simulate user to click on Credentials tab again:
+        credentialPage.clickCredTab();
+
+        // use CredentialService to get credential data by id
+        Credential credential = this.credentialService.getCredentialById(1);
+
+        // test if newly edited credential url, username, and password match:
+        assertEquals("instagram.com", credentialPage.getUrlText());
+        assertEquals("haphuong", credentialPage.getUsernameText());
+        // use EncryptionService to use decryptValue() to get unencrypted pass
+        // then compare with currently encrypted password:
+        assertEquals(this.encryptionService.encryptValue("newP@ssword", credential.getKey()), credentialPage.getPasswordText());
     }
 
     /**
@@ -112,13 +146,13 @@ public class CredentialTests {
     @Test
     public void addNewCredential() {
 
-        // test if new credential url and username match:
-        assertEquals("facebook.com", credentialPage.getUrlText());
-        assertEquals("ploratran", credentialPage.getUsernameText());
-
         // initialize Credential object:
         // since this is a test, just get the very first value of data displayed on screen:
         Credential credential = this.credentialService.getCredentialById(1);
+
+        // test if new credential url, username, and password match:
+        assertEquals("facebook.com", credentialPage.getUrlText());
+        assertEquals("ploratran", credentialPage.getUsernameText());
         assertEquals(this.encryptionService.encryptValue("p@ssword", credential.getKey()), credentialPage.getPasswordText());
     }
 }
