@@ -104,22 +104,8 @@ class AuthTests {
 		// check the title of the current page is Signup
 		assertEquals("Sign Up", driver.getTitle());
 
-		// try to wait 2000s:
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
 		// click "Back to login" to go back to /login:
-		signupPage.clickBackToLogin();
-
-		// try to wait 2000s:
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		driver.get(baseURL + "/login");
 
 		// currently in Login page
 		// simulate unauthorized user to click Login but fail:
@@ -132,12 +118,5 @@ class AuthTests {
 		// check if invalid user message displayed:
 		// expect to see "Invalid user" error message for unauthorized user login:
 		assertTrue(loginPage.isInvalid());
-
-		// try to wait 2000s:
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 }

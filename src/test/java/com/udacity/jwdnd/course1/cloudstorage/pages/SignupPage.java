@@ -25,7 +25,7 @@ public class SignupPage {
     @FindBy(tagName = "button")
     private WebElement signupBtn;
 
-    @FindBy(tagName = "label")
+    @FindBy(xpath = "//label//a[@href='/login']")
     private WebElement backToLoginBtn;
 
     private final WebDriver driver;
@@ -47,9 +47,5 @@ public class SignupPage {
 
         // hit Sign Up button:
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", this.signupBtn);
-    }
-
-    public void clickBackToLogin() {
-        this.backToLoginBtn.click();
     }
 }
