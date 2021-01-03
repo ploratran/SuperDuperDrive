@@ -56,6 +56,7 @@ public class CredentialController {
         Credential credential = new Credential();
         // set new data of URL, username, password to Credential with
         // new data from Credential DTO:
+        credential.setCredentialId(credDTO.getCredentialID());
         credential.setUrl(credDTO.getCredentialUrl());
         credential.setUsername(credDTO.getCredentialUsername());
         credential.setPassword(credDTO.getCredentialPassword());
@@ -122,7 +123,7 @@ public class CredentialController {
         return "result";
     }
 
-    // EDIT/DECRYPT password by password:
+    // DECRYPT password by to show decrypted password when open up modal on frontend:
     @GetMapping("/home/credential/decrypt-password/{credentialId}")
     public ResponseEntity<String> decryptPassword(@PathVariable("credentialId") int credentialId) throws IOException {
         Credential credential = this.credentialService.getCredentialById(credentialId);
