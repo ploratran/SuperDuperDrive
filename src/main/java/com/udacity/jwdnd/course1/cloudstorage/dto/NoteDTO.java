@@ -2,19 +2,19 @@ package com.udacity.jwdnd.course1.cloudstorage.dto;
 
 public class NoteDTO {
 
-    private Integer noteId;
+    private Integer noteID;
     private String noteTitle;
     private String noteDescription;
 
     // constructor
     public NoteDTO() {}
 
-    public Integer getNoteId() {
-        return noteId;
+    // getters and setters:
+    public Integer getNoteID() {
+        return noteID;
     }
-
-    public void setNoteId(Integer noteId) {
-        this.noteId = noteId;
+    public void setNoteID(Integer noteID) {
+        this.noteID = noteID;
     }
     public String getNoteTitle() {
         return noteTitle;

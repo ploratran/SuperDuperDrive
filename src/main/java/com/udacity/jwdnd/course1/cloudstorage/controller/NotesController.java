@@ -39,17 +39,23 @@ public class NotesController {
     }
 
     @PostMapping("/home/note/newNote")
-    public String postNewNote(@ModelAttribute("newNote") Note note, Authentication auth, Model model) {
+    public String postNewNote(@ModelAttribute("noteDTO") NoteDTO noteDTO, Authentication auth, Model model) {
 
-        String errorMessage = null;
+        String errMsg = null;
 
         // use userMapper to get a specific user by username:
         // using Spring Authentication to get username:
         // return current userId:
         int currentUserId = this.userService.getUserById(auth.getName());
 
+        Note note = new Note();
+
+        note.setNoteId(noteDTO.getNoteID());
+        note.setTitle(noteDTO.getNoteTitle());
+        note.setDescription(noteDTO.getNoteDescription());
+
         // if there are no error, add note based on currentUserId:
-        if (errorMessage == null) {
+        if (errMsg == null) {
             // set a specific note to current user by userId:
             note.setUserId(currentUserId);
             // add note to Notes db by noteId:
@@ -57,15 +63,15 @@ public class NotesController {
 
             // check if noteId has error, inform error:
             if (currentNoteId < 0) {
-                errorMessage = "There was error adding new note!";
+                errMsg = "There was error adding new note!";
             }
         }
 
         // show result.html page with success/fail message:
-        if (errorMessage == null) {
+        if (errMsg == null) {
             model.addAttribute("updateSuccess", true);
         } else {
-            model.addAttribute("updateFail", errorMessage);
+            model.addAttribute("updateFail", errMsg);
         }
 
         return "result";
@@ -93,5 +99,4 @@ public class NotesController {
 
         return "result";
     }
-
 }

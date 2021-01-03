@@ -40,16 +40,13 @@ public class FilesController {
     // POST to upload new file:
     @PostMapping("/home/file/newFile")
     public String uploadNewFile(Authentication auth, Model model,
-                                @ModelAttribute("fileDTO") MultipartFile file,
-                                RedirectAttributes redirectAttributes) throws IOException {
+                                @ModelAttribute("fileDTO") MultipartFile file) throws IOException {
 
         String errorMsg = null;
 
         int currentUserId = this.userService.getUserById(auth.getName());
 
-        System.out.println("Name: " + file.getName());
-
-        // handle edge cases:
+        /** handle edge cases: */
         // check when empty file is uploaded:
         if (file.isEmpty()) {
             errorMsg = "File should not be empty!";
@@ -65,6 +62,8 @@ public class FilesController {
         if (file.getSize() > 1000000) { // compare file size to bytes value
             errorMsg = "File cannot be greater than 1MB. Choose a lower file.";
         }
+
+        /** end handling edge cases */
 
         if (errorMsg == null) {
             // upload file to Files DB by fileId:
@@ -88,7 +87,7 @@ public class FilesController {
 
     // DELETE a file by its fileId:
     @GetMapping("/home/file/delete/{fileId}")
-    public String deleteFile(@PathVariable("fileId") int fileId, Authentication auth, Model model) {
+    public String deleteFile(@PathVariable("fileId") int fileId, Model model) {
 
         String errorMsg = null;
 
@@ -119,7 +118,7 @@ public class FilesController {
      * Reference: https://www.baeldung.com/spring-response-entity
      * */
     @GetMapping("/home/file/download/{fileName}")
-    public @ResponseBody ResponseEntity viewFile(@PathVariable("fileName") String fileName, Authentication auth) throws IOException {
+    public @ResponseBody ResponseEntity viewFile(@PathVariable("fileName") String fileName, Authentication auth) {
 
         // get current userId using Authentication and UserService:
         int currentUserId = this.userService.getUserById(auth.getName());
