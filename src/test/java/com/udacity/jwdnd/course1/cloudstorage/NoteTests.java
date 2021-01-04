@@ -68,6 +68,15 @@ public class NoteTests {
         /** add a new note so that we can test for add/edit/delete at same time: */
         // simulate user to click on Notes tab:
         notePage.clickNoteTab();
+    }
+
+    /**
+     *  TEST 1:
+     *  Write a test that creates a note, and verifies it is displayed.
+     *  Test if newly added note is displayed with same title and description in Home
+     * */
+    @Test
+    public void addNewNote() {
         // simulate user to click "Add/Edit a Note" button to add new note:
         notePage.clickAddNoteBtn();
         // fill in data to add a new note:
@@ -81,15 +90,6 @@ public class NoteTests {
 
         // simulate user to click on Notes tab:
         notePage.clickNoteTab();
-    }
-
-    /**
-     *  TEST 1:
-     *  Write a test that creates a note, and verifies it is displayed.
-     *  Test if newly added note is displayed with same title and description in Home
-     * */
-    @Test
-    public void addNewNote() {
 
         // test if new note's title and description match:
         assertEquals("Test Title", notePage.getNoteTitleText());
