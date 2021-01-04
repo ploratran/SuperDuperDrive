@@ -112,7 +112,7 @@ public class CredentialPage {
 
     // get unencrypted password:
     public String getUnencryptedPassword() {
-        return this.credentialPassword.getText();
+        return this.credentialPassword.getAttribute("value");
     }
 
 }
