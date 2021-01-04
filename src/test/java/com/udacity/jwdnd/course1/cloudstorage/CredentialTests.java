@@ -81,6 +81,17 @@ public class CredentialTests {
 
         // simulate user to click on Credentials tab on nav bar:
         credentialPage.clickCredTab();
+    }
+
+    /**
+     *  TEST 1:
+     *  Write a test that creates a set of credentials,
+     *  verifies that they are displayed,
+     *  and verifies that the displayed password is encrypted.
+     * */
+    @Test
+    public void addNewCredential() {
+
         // simulate user to click on Add new credential button:
         credentialPage.clickAddCredBtn();
 
@@ -99,16 +110,6 @@ public class CredentialTests {
 
         // simulate user to click on Credentials tab again:
         credentialPage.clickCredTab();
-    }
-
-    /**
-     *  TEST 1:
-     *  Write a test that creates a set of credentials,
-     *  verifies that they are displayed,
-     *  and verifies that the displayed password is encrypted.
-     * */
-    @Test
-    public void addNewCredential() {
 
         // initialize Credential object:
         // since this is a test, just get the very first value of data displayed on screen:
