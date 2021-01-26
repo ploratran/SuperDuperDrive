@@ -3,7 +3,7 @@
 **Super*Duper*Drive** is a Udacity project practicing on Spring MVC architecture. 
 
 ## Demo: 
-![](gif/spring-mvc.gif)
+![](public/spring-mvc.gif)
 
 ## Table of Contents
 1. [Functionalities](#functionalities)
@@ -11,9 +11,10 @@
 3. [Getting Started](#getting-started)
 4. [Endpoints](#endpoints)
 5. [How to use the app](#how-to-use-the-app)
-6. [Udacity Requirements](#udacity-requirements)
-7. [Final Tips and Tricks](#final-tips-and-tricks)
-8. [License](#license)
+6. [App Structure](#app-structure)
+7. [Udacity Requirements](#udacity-requirements)
+8. [Final Tips and Tricks](#final-tips-and-tricks)
+9. [License](#license)
 
 ## Functionalities:
 - [x] **Simple File Storage:** Upload/download/remove files
@@ -88,6 +89,32 @@ There are 2 ways to install dependencies in Spring Boot project.
 
 ## How to use the app: 
 
+1. Everyone should be allowed to sign up to sign up new account: 
+
+<img src="public/signup.png" width="470" height="270">
+
+2. Everyone should be allowed to login if they have signed up. If not, login error will show invalid username/password: 
+
+<img src="public/login.png" width="470" height="270">
+
+3. Authorized user can navigate to homepage: 
+
+* Files: User should be able to upload, delete, download a file and previously uploaded files. 
+
+<img src="public/files.png" width="470" height="270">
+
+* Notes: User should be able to create, edit, delete and view a note and previously created notes. 
+
+<img src="public/note2.png" width="470" height="270">
+
+* Credentials: User should be able to create, edit, delete, and view a credential and previously created credentials. 
+
+<img src="public/credential.png" width="470" height="270">
+
+## App Structure: 
+
+
+
 ## Udacity Requirements: 
 
 A database schema for the project has been added to the `src/main/resources` directory. That means you don't have to design the database, only develop the Java code to interact with it. 
@@ -102,18 +129,15 @@ The back-end is all about security and connecting the front-end to database data
 - [x] Spring Boot has built-in support for handling calls to the `/login` and `/logout` endpoints. You have to use the security configuration to override the default login page with one of your own, discussed in the front-end section.
 - [x] You also need to implement a custom `AuthenticationProvider` which authorizes user logins by matching their credentials against those stored in the database.  
 
-
 2. Handling front-end calls with controllers
 - [x] You need to write controllers for the application that bind application data and functionality to the front-end. That means using Spring MVC's application model to identify the templates served for different requests and populating the view model with data needed by the template. 
 - [x] The controllers you write should also be responsible for determining what, if any, error messages the application displays to the user. When a controller processes front-end requests, it should delegate the individual steps and logic of those requests to other services in the application, but it should interpret the results to ensure a smooth user experience.
 - [x] It's a good idea to keep your controllers in a single package to isolate the controller layer. Usually, we simply call this package `controller`!
 - [x] If you find yourself repeating tasks over and over again in controller methods, or your controller methods are getting long and complicated, consider abstracting some methods out into services! For example, consider the `HashService` and `EncryptionService` classes included in the starter code package `service`. These classes encapsulate simple, repetitive tasks and are available anywhere dependency injection is supported. Think about additional tasks that can be similarly abstracted and reused, and create new services to support them!
 
-
 3. Making calls to the database with MyBatis mappers
  - Since you were provided with a database schema to work with, you can design Java classes to match the data in the database. These should be POJOs (Plain Old Java Objects) with fields that match the names and data types in the schema, and you should create one class per database table. These classes typically are placed in a `model` or `entity` package.
  - To connect these model classes with database data, implement MyBatis mapper interfaces for each of the model types. These mappers should have methods that represent specific SQL queries and statements required by the functionality of the application. They should support the basic CRUD (Create, Read, Update, Delete) operations for their respective models at the very least. You can place these classes in (you guessed it!) the `mapper` package.
-
 
 ### **The Front-End**
 Your tech lead has done a thorough job developing HTML templates for the required application pages. They have included fields, modal forms, success and error message elements, as well as styling and functional components using Bootstrap as a framework. You must edit these templates and insert Thymeleaf attributes to supply the back-end data and functionality described by the following individual page requirements:
@@ -122,16 +146,13 @@ Your tech lead has done a thorough job developing HTML templates for the require
 - [x] Everyone should be allowed access to this page, and users can use this page to login to the application. 
 - [x] Show login errors, like invalid username/password, on this page. 
 
-
 2. Sign Up page
 - [x] Everyone should be allowed access to this page, and potential users can use this page to sign up for a new account. 
 - [x] Validate that the username supplied does not already exist in the application, and show such signup errors on the page when they arise.
 - [x] Remember to store the user's password securely!
 
-
 3. Home page
 The home page is the center of the application and hosts the three required pieces of functionality. The existing template presents them as three tabs that can be clicked through by the user:
-
 
  i. Files
 - [x] The user should be able to upload files and see any files they previously uploaded. 
@@ -149,19 +170,17 @@ The home page is the center of the application and hosts the three required piec
 
 The home page should have a logout button that allows the user to logout of the application and keep their data private.
 
-### Testing
+### **Testing**
 Your tech lead trusts you to do a good job, but testing is important whether you're an excel number-cruncher or a full-stack coding superstar! The QA team at Super*Duper*Drive carries out extensive user testing. Still, your tech lead wants you to write some simple Selenium tests to verify user-facing functionality and prove that your code is feature-complete before the testers get their hands on it.
 
 1. Write tests for user signup, login, and unauthorized access restrictions.
  - [x] Write a test that verifies that an unauthorized user can only access the login and signup pages.
  - [x] Write a test that signs up a new user, logs in, verifies that the home page is accessible, logs out, and verifies that the home page is no longer accessible. 
 
-
 2. Write tests for note creation, viewing, editing, and deletion.
  - [x] Write a test that creates a note, and verifies it is displayed.
  - [x] Write a test that edits an existing note and verifies that the changes are displayed.
  - [x] Write a test that deletes a note and verifies that the note is no longer displayed.
-
 
 3. Write tests for credential creation, viewing, editing, and deletion.
  - [x] Write a test that creates a set of credentials, verifies that they are displayed, and verifies that the displayed password is encrypted.
