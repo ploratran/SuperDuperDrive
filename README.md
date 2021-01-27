@@ -33,6 +33,7 @@ There are 2 ways to install dependencies in Spring Boot project.
 2. Add the required dependency under ```<dependency>``` in ```pom.xml``` file in project root directory. 
 
 ### Required Dependencies: 
+
 - **Spring Boot DevTools**
 - **Spring Web**
 - **ThymeLeaf**
@@ -112,6 +113,41 @@ There are 2 ways to install dependencies in Spring Boot project.
 <img src="public/credential.png" width="470" height="270">
 
 ## App Structure: 
+
+<img src="public/spring-mvc.png" width="400" height="220"> 
+
+Files are organized into folders under the Onion architecture: 
+
+```
+.
+├── config
+├── controller
+├── dto
+├── mapper
+├── model
+├── services
+    CloudStorageApplcation.java
+```
+
+<img src="public/onions.png" width="470" height="270">
+
+- **CloudStorageApplication.java:** main Spring Boot Application class with @SpringBootApplication
+
+- **Config**: Configure Spring Security by extends ```WebSecurityConfigurerAdapter``` interface with ```@EnableWebSecurity```. Override HttpSecurity and AuthenticationManagerBuilder classes.
+
+- **Controller:** process user actions (sent from View layer) to update the Model layer, and forwarding those updates back to the View layer with ```@Controller, @PostMapping, @GetMapping```
+
+- **Data Transfer Object (DTO):** object that represents that data contained in a Thymeleaf form. On the Spring side, this is usually an additional argument Model to the relevant Controller method, and on the Thymeleaf side, this is referred to in the **th:object** attribute on the form.
+
+<img src="public/dto.png" width="400" height="220">
+
+- **Model (Data/ Entity):** representation of Database Table. Responsible for transporting the data that will be used in CRUD operations. 
+
+- **Service:** defines methods that manage 1 aspect of an application's business logic. Services represent the middle layer of an onion architecture. Annotated with ```@Service```
+
+- **Mapper:** using MyBatis as ORM to transform Java objects to SQL query parameters and to transform SQL query results into Java objects. Annotated with ```@Mapper``
+
+<img src="public/mybatis-orm.png" width="470" height="270">
 
 
 
