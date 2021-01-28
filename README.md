@@ -1,20 +1,21 @@
 # Super*Duper*Drive Cloud Storage
 
 **Super*Duper*Drive** is a Udacity project practicing on Spring MVC architecture. 
-
-## Demo: 
+◊
+## Demo: http://springmvc-env.eba-aqkr627y.us-east-2.elasticbeanstalk.com/login
 ![](public/spring-mvc.gif)
 
 ## Table of Contents
 1. [Functionalities](#functionalities)
 2. [Tech Stack](#tech-stack)
-3. [Getting Started](#getting-started)
-4. [Endpoints](#endpoints)
-5. [How to use the app](#how-to-use-the-app)
-6. [App Structure](#app-structure)
-7. [Udacity Requirements](#udacity-requirements)
-8. [Final Tips and Tricks](#final-tips-and-tricks)
-9. [License](#license)
+3. [Getting Started](#getting-started) 
+4. [Deployment](#deployment) 
+5. [Endpoints](#endpoints)
+6. [How to use the app](#how-to-use-the-app)
+7. [App Structure](#app-structure)
+8. [Udacity Requirements](#udacity-requirements)
+9. [Final Tips and Tricks](#final-tips-and-tricks)
+10. [License](#license)
 
 ## Functionalities:
 - [x] **Simple File Storage:** Upload/download/remove files
@@ -31,6 +32,23 @@
 There are 2 ways to install dependencies in Spring Boot project. 
 1. Navigate to [Spring Initializr](https://start.spring.io/) to generate Spring Boot project with required dependencies 
 2. Add the required dependency under ```<dependencies>``` in ```pom.xml``` file in project root directory. 
+
+## Deployment: 
+
+To host a Spring MVC application on AWS, follow these steps: 
+
+1. Configure the app's server port in ```application.properties``` to 5000: 
+
+```
+server.port=5000
+```
+2. In root folder, repackage application to ```.jar``` by Maven by running: 
+```
+mvn package 
+```
+A .jar file will be found at ```target/```
+
+3. Navigate to Elastic Beanstalk in AWS, select ```Create a Web App``` and select the option: ```Upload your code``` under  ```Application code``` section to create application. Select the compiled .jar done at step 2 to upload application code into Elastic Beanstalk. 
 
 ### Required Dependencies: 
 
@@ -79,14 +97,14 @@ There are 2 ways to install dependencies in Spring Boot project.
 
 | **Method** | **Endpoints** |
 | ---------- | ------------ |
-| **File - DOWNLOAD**      | `localhost:3000/home/file/download/{fileName}`                  |
-| **File - ADD**           | `localhost:3000/home/file/newFile`                              |
-| **File - DELETE**        | `localhost:3000/home/file/delete/${fileId}`                     |
-| **Note - ADD**           | `localhost:3000/home/note/newNote`                              |
-| **Note - DELETE**        | `localhost:3000/home/note/delete/{noteId}`                      |
-| **Credential - ADD**     | `localhost:3000/home/credential/newCredential`                  |
-| **Credential - DELETE**  | `localhost:3000/home/credential/delete/{credentialId}`          |
-| **Credential - Decrypt** | `localhost:3000/home/credential/decrypt-password/{credentialId}`|
+| **File - DOWNLOAD**      | `localhost:5000/home/file/download/{fileName}`                  |
+| **File - ADD**           | `localhost:5000/home/file/newFile`                              |
+| **File - DELETE**        | `localhost:5000/home/file/delete/${fileId}`                     |
+| **Note - ADD**           | `localhost:5000/home/note/newNote`                              |
+| **Note - DELETE**        | `localhost:5000/home/note/delete/{noteId}`                      |
+| **Credential - ADD**     | `localhost:5000/home/credential/newCredential`                  |
+| **Credential - DELETE**  | `localhost:5000/home/credential/delete/{credentialId}`          |
+| **Credential - Decrypt** | `localhost:5000/home/credential/decrypt-password/{credentialId}`|
 
 ## How to use the app: 
 
