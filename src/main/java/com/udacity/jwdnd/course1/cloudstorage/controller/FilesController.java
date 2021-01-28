@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 
@@ -58,7 +57,7 @@ public class FilesController {
         }
 
         // check if file size is greater than 128KB, user cannot upload it:
-        System.out.println("File Size: " + file.getContentType() + " " + file.getSize());
+        // the .getSize() is from MultipartFile class:
         if (file.getSize() > 1000000) { // compare file size to bytes value
             errorMsg = "File cannot be greater than 1MB. Choose a lower file.";
         }
@@ -126,18 +125,21 @@ public class FilesController {
         // get file from Files DB using userId and fileName via FileService:
         File file = this.filesService.getFileByName(currentUserId, fileName);
 
-        // get filename:
+        // use get filename:
         String fName = file.getFileName();
 
-        // if a file is uploaded (not null):
+        /**
+         * if a file is uploaded (not null), then allow users to download by send back in HTTP response:
+         * Reference: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Disposition
+         * */
         if (file != null) {
             return ResponseEntity.ok()
-                    .contentType(MediaType.parseMediaType(file.getContentType()))
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + fName + "\"")
+                    .contentType(MediaType.parseMediaType(file.getContentType())) //
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + fName + "\"") // a response header as a Web page or as part of a Web page, or as an attachment, that is downloaded and saved locally.
                     .body(file.getFileData());
         }
 
-        // download the file so no need to return "home" view template:
+        // download the file so no need to return home.html:
         return null;
     }
 }

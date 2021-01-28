@@ -8,6 +8,10 @@ import java.util.List;
 @Mapper
 public interface NotesMapper {
     // GET all notes from Notes db by userId:
+
+    // since properties/fields in Note entity is difference from NOTES database
+    // use @Results and @Result to map matching results of query to Java object:
+    // Reference: https://medium.com/@hsvdahiya/mybatis-annotations-result-mapping-spring-79944ff74b84
     @Results({
             @Result(id = true, property = "noteId", column = "noteid"),
             @Result(property = "title", column = "notetitle"),

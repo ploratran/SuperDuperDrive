@@ -11,6 +11,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 /**
  * restrict unauthorized users from accessing pages other than
  * login and signup pages
+ * https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/config/annotation/web/builders/HttpSecurity.html
  */
 
 @Configuration
@@ -27,27 +28,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     // configure Spring Authentication Manager
-    // take AuthenticationManagerBuilderz class supplied by Spring:
+    // take AuthenticationManagerBuilder class supplied by Spring:
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(this.authenticationService);
     }
 
     // use the security configuration to override the default login page:
+    // HttpSecurity: configure web based security for specific http requests
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // authorize without auth to any users to /signup:
-        http.authorizeRequests()
+        http.authorizeRequests() // allow restricting access based on .antMatcher
                 .antMatchers("/signup","/login", "/css/**", "/js/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .logout()
-                    .deleteCookies("remove")
-                    .invalidateHttpSession(true)
-                    .logoutSuccessUrl("/login?logout");
+                .logout() // provides logout support
+                    .deleteCookies("remove") // delete cookies
+                    .invalidateHttpSession(true) // session invalidated after logout
+                    .logoutSuccessUrl("/login?logout"); // after successfully logout, redirect user to /login?logout
 
         // handling calls to the /login and /logout endpoints
-        //  use the security configuration to override the default login page with one of your own
+        // use the security configuration to override the default login page with one of your own
         http.formLogin()
                 .loginPage("/login")
                 .permitAll()

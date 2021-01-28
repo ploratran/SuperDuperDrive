@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+// define Page Object for each web element of Credential tab:
 public class CredentialPage {
     /**
      * define fields
@@ -53,17 +54,23 @@ public class CredentialPage {
     @FindBy(id = "cred-DeleteBtn")
     private WebElement deleteBtn;
 
-    // driver:
+    // driver (Chrome):
     private final WebDriver driver;
 
     // constructor:
     public CredentialPage(WebDriver driver) {
         this.driver = driver;
+        // initialize page objects using initElements() from PageFactory class in Selenium:
+        // all web element will get initialized:
+        // Reference: https://www.seleniumeasy.com/selenium-tutorials/page-factory-pattern-in-selenium-webdriver
         PageFactory.initElements(driver, this);
     }
 
-    /** define methods */
-
+    /** define methods
+     * use JavascriptExecutor to execute Javascript through Selenium Webdriver
+     * .executeScript() to run javascript on selected window or current page
+     * Reference: https://www.guru99.com/execute-javascript-selenium-webdriver.html
+     * */
     // method to simulate user to click on Credentials tab:
     public void clickCredTab() {
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", this.credTab);
@@ -94,6 +101,9 @@ public class CredentialPage {
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", this.submitBtn);
     }
 
+    /** use .getAttribute("innerHTML") to get HTML source of the content of the element in Selenium
+     * Reference: https://www.browserstack.com/guide/get-html-source-of-web-element-in-selenium-webdriver
+     * */
     // verify that new credential's url is created:
     public String getUrlText() {
         return credentialUrlText.getAttribute("innerHTML");
@@ -110,6 +120,10 @@ public class CredentialPage {
         return credentialPasswordText.getAttribute("innerHTML");
     }
 
+
+    /** .getAttribute("value") will get the value of the attribute
+     * Reference: https://knowledge.udacity.com/questions/434707
+     * */
     // get unencrypted password:
     public String getUnencryptedPassword() {
         return this.credentialPassword.getAttribute("value");

@@ -27,17 +27,20 @@ class AuthTests {
 
 	String baseURL;
 
+	// before all test, initialize Driver as Chrome browser:
 	@BeforeAll
 	public static void beforeAll() {
 		WebDriverManager.chromedriver().setup();
 		driver = new ChromeDriver();
 	}
 
+	// after all tests, quit driver:
 	@AfterAll
 	public static void afterAll() {
 		driver.quit();
 	}
 
+	// before each test, navigate to url to simulat test:
 	@BeforeEach
 	public void beforeEach() {
 		baseURL = "http://localhost:" + port;

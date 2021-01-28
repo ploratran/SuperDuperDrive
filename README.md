@@ -30,7 +30,7 @@
 ## Getting Started: 
 There are 2 ways to install dependencies in Spring Boot project. 
 1. Navigate to [Spring Initializr](https://start.spring.io/) to generate Spring Boot project with required dependencies 
-2. Add the required dependency under ```<dependency>``` in ```pom.xml``` file in project root directory. 
+2. Add the required dependency under ```<dependencies>``` in ```pom.xml``` file in project root directory. 
 
 ### Required Dependencies: 
 
@@ -77,7 +77,7 @@ There are 2 ways to install dependencies in Spring Boot project.
 
 ## Endpoints: 
 
-| **Method** | **endpoint** |
+| **Method** | **Endpoints** |
 | ---------- | ------------ |
 | **File - DOWNLOAD**      | `localhost:3000/home/file/download/{fileName}`                  |
 | **File - ADD**           | `localhost:3000/home/file/newFile`                              |
@@ -114,7 +114,7 @@ There are 2 ways to install dependencies in Spring Boot project.
 
 ## App Structure: 
 
-<img src="public/spring-mvc.png" width="400" height="220"> 
+<img src="public/spring-mvc.png" width="500" height="300"> 
 
 Files are organized into folders under the Onion architecture: 
 
@@ -127,29 +127,31 @@ Files are organized into folders under the Onion architecture:
 ├── model
 ├── services
     CloudStorageApplcation.java
+├── resources
+    ├── templates
+        application.properties
+        schema.sql
 ```
 
-<img src="public/onions.png" width="470" height="270">
+<img src="public/onions.png" width="500" height="300">
 
 - **CloudStorageApplication.java:** main Spring Boot Application class with @SpringBootApplication
 
-- **Config**: Configure Spring Security by extends ```WebSecurityConfigurerAdapter``` interface with ```@EnableWebSecurity```. Override HttpSecurity and AuthenticationManagerBuilder classes.
+- **Config/**: Configure Spring Security by extends ```WebSecurityConfigurerAdapter``` interface with ```@EnableWebSecurity``` annotation. ```@Override``` HttpSecurity and AuthenticationManagerBuilder classes.
 
-- **Controller:** process user actions (sent from View layer) to update the Model layer, and forwarding those updates back to the View layer with ```@Controller, @PostMapping, @GetMapping```
+- **Controller/:** processes user actions (sent from ```View``` layer) to update the ```Model``` layer, and forwarding those updates back to the ```View``` layer with ```@Controller, @PostMapping, @GetMapping```
 
-- **Data Transfer Object (DTO):** object that represents that data contained in a Thymeleaf form. On the Spring side, this is usually an additional argument Model to the relevant Controller method, and on the Thymeleaf side, this is referred to in the **th:object** attribute on the form.
+- **Data Transfer Object (DTO)/:** objects that represent data contained in a Thymeleaf form. On the Spring side, this is usually an additional argument ```(Model model)``` to the relevant Controller method, and on the Thymeleaf side, this is referred to in the ```th:object``` attribute on the form.
 
-<img src="public/dto.png" width="400" height="220">
+<img src="public/dto.png" width="400" height="320">
 
-- **Model (Data/ Entity):** representation of Database Table. Responsible for transporting the data that will be used in CRUD operations. 
+- **Model (Data/ Entity)/:** representation of Database Table. Responsible for transporting the data that will be used in CRUD operations. 
 
-- **Service:** defines methods that manage 1 aspect of an application's business logic. Services represent the middle layer of an onion architecture. Annotated with ```@Service```
+- **Service/:** defines methods that manage 1 aspect of an application's business logic. Services represent the middle layer of an onion architecture. Annotated with ```@Service```
 
-- **Mapper:** using MyBatis as ORM to transform Java objects to SQL query parameters and to transform SQL query results into Java objects. Annotated with ```@Mapper``
+- **Mapper/:** using MyBatis as ORM to transform Java objects to SQL query parameters and to transform SQL query results into Java objects. Annotated with ```@Mapper```
 
 <img src="public/mybatis-orm.png" width="470" height="270">
-
-
 
 ## Udacity Requirements: 
 
@@ -176,7 +178,7 @@ The back-end is all about security and connecting the front-end to database data
  - To connect these model classes with database data, implement MyBatis mapper interfaces for each of the model types. These mappers should have methods that represent specific SQL queries and statements required by the functionality of the application. They should support the basic CRUD (Create, Read, Update, Delete) operations for their respective models at the very least. You can place these classes in (you guessed it!) the `mapper` package.
 
 ### **The Front-End**
-Your tech lead has done a thorough job developing HTML templates for the required application pages. They have included fields, modal forms, success and error message elements, as well as styling and functional components using Bootstrap as a framework. You must edit these templates and insert Thymeleaf attributes to supply the back-end data and functionality described by the following individual page requirements:
+You must edit these templates and insert Thymeleaf attributes to supply the back-end data and functionality described by the following individual page requirements:
 
 1. Login page
 - [x] Everyone should be allowed access to this page, and users can use this page to login to the application. 
@@ -207,7 +209,7 @@ The home page is the center of the application and hosts the three required piec
 The home page should have a logout button that allows the user to logout of the application and keep their data private.
 
 ### **Testing**
-Your tech lead trusts you to do a good job, but testing is important whether you're an excel number-cruncher or a full-stack coding superstar! The QA team at Super*Duper*Drive carries out extensive user testing. Still, your tech lead wants you to write some simple Selenium tests to verify user-facing functionality and prove that your code is feature-complete before the testers get their hands on it.
+Testing is important whether you're an excel number-cruncher or a full-stack coding superstar! Write some simple Selenium tests to verify user-facing functionality.
 
 1. Write tests for user signup, login, and unauthorized access restrictions.
  - [x] Write a test that verifies that an unauthorized user can only access the login and signup pages.
@@ -225,7 +227,7 @@ Your tech lead trusts you to do a good job, but testing is important whether you
 
 ## Final Tips and Tricks
 ### Password Security
-Make sure not to save the plain text credentials of the application's users in the database. That's a recipe for data breach disaster! Use a hashing function to store a scrambled version instead. Your tech lead gave you a class called `HashService` that can hash passwords for you. When the user signs up, you only store a hashed version of their password in the database, and on login, you hash the password attempt before comparing it with the hashed password in the database. Your tech lead knows that can be a little confusing, so they provided this code sample to help illustrate the idea:
+Make sure not to save the plain text credentials of the application's users in the database. That's a recipe for data breach disaster! Use a hashing function to store a scrambled version instead. Your tech lead gave you a class called `HashService` that can hash passwords for you. When the user signs up, you only store a hashed version of their password in the database, and on login, you hash the password attempt before comparing it with the hashed password in the database. Provided this code sample to help illustrate the idea:
 
 ```
 byte[] salt = new byte[16];
@@ -235,7 +237,7 @@ String hashedPassword = hashService.getHashedValue(plainPassword, encodedSalt);
 return hashedPassword;
 ```
 
-For storing credentials in the main part of the application, we can't hash passwords because it's a one-way operation. The user needs access to the unhashed password, after all! So instead, you should encrypt the passwords. Your tech lead provided you with a class called `EncryptionService` that can encrypt and decrypt passwords. When a user adds new credentials, encrypt the password before storing it in the database. When the user views those credentials, decrypt the password before displaying it. Here's a little code snippet on how to use `EncryptionService`:
+For storing credentials in the main part of the application, we can't hash passwords because it's a one-way operation. The user needs access to the unhashed password, after all! So instead, you should encrypt the passwords. Provided you a class called `EncryptionService` that can encrypt and decrypt passwords. When a user adds new credentials, encrypt the password before storing it in the database. When the user views those credentials, decrypt the password before displaying it. Here's a little code snippet on how to use `EncryptionService`:
 
 ```
 SecureRandom random = new SecureRandom();

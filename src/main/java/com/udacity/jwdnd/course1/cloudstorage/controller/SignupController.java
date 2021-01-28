@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/signup")
 public class SignupController {
 
-    // user UserService in Signup to authenticate user
+    // use UserService in Signup to authenticate user
     // create new user into User database:
     private final UserService userService;
 
@@ -30,19 +30,23 @@ public class SignupController {
     public String signupUser(@ModelAttribute User user, Model model) {
         String signupError = null;
 
-        // check if a submitted username is already available:
+        // check if the entered username is already available, log error:
         if (!this.userService.isUsernameAvailable(user.getUsername())) {
             signupError = "This username already exists.";
         }
 
-        // check if given username is available:
+        // if a user is NOT available, add new user to USER table
+        // return the number of the newly inserted row:
         if (signupError == null) {
             int rowsAdded = this.userService.createUser(user);
+
+            // if the newly inserted row is less than 0, log error:
             if (rowsAdded < 0) {
                 signupError = "There was an error signing you up. Please try again!";
             }
         }
 
+        // display signupSuccess and signupError logs in signup.html:
         if (signupError == null) {
             model.addAttribute("signupSuccess", true);
         } else {

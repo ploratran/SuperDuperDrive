@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 import java.security.SecureRandom;
 import java.util.Base64;
 
+/**
+ * use UserMapper to access to database
+ * use HashService to
+ * */
 @Service
 public class UserService {
     // fields:
@@ -19,18 +23,21 @@ public class UserService {
         this.hashService = hashService;
     }
 
-    // check to see if the username already exists in database (if null):
+    // upon Signup, check to see if a username is NOT already exists in database (if null):
     public boolean isUsernameAvailable(String username) {
         return this.userMapper.getUser(username) == null;
     }
 
-    // create new user into User database with PK = userId:
+    // create new user in USERS database with PK = userId:
     public int createUser(User user) {
+
+        // use SecureRandom class to generate cryptographic, random number:
         SecureRandom random = new SecureRandom();
-        // generate random salt:
+        // define salt:
         byte[] salt = new byte[16];
+        // generate random with salt:
         random.nextBytes(salt);
-        // generate base64 encoded salt:
+        // encode salt with Base64:
         String encodedSalt = Base64.getEncoder().encodeToString(salt);
         // use Hash Service to hash user's input password with encoded salt:
         String hashedPassword = this.hashService.getHashedValue(user.getPassword(), encodedSalt);
@@ -39,7 +46,7 @@ public class UserService {
         return this.userMapper.insert(new User(null, user.getUsername(), encodedSalt, hashedPassword, user.getFirstName(), user.getLastName()));
     }
 
-    // get specific user by username from User database:
+    // find specific userId by username from User database to use in the Controllers:
     public int getUserById(String username) {
         return this.userMapper.getUser(username).getUserId();
     }

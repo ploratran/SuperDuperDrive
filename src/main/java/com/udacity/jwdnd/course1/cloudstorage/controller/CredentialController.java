@@ -124,12 +124,16 @@ public class CredentialController {
     }
 
     // DECRYPT password by to show decrypted password when open up modal on frontend:
+    // does NOT return thymeleaf template because we return decrypted password as HTTP response value:
     @GetMapping("/home/credential/decrypt-password/{credentialId}")
     public ResponseEntity<String> decryptPassword(@PathVariable("credentialId") int credentialId) throws IOException {
         Credential credential = this.credentialService.getCredentialById(credentialId);
+        // use .decryptValue in EncryptionService to decrypt password:
         String decryptedPassword = this.encryptionService.decryptValue(credential.getPassword(), credential.getKey());
         System.out.println("Decrypted password " + decryptedPassword);
 
+        // Reference: https://www.baeldung.com/spring-response-entity
+        // return the decrypted password back as HTTP response:
         return ResponseEntity.ok(decryptedPassword);
     }
 }

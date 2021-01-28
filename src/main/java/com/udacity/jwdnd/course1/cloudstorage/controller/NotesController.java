@@ -48,15 +48,16 @@ public class NotesController {
         // return current userId:
         int currentUserId = this.userService.getUserById(auth.getName());
 
+        // set note data from Note DTO in thymeleaf object to Note Entity:
         Note note = new Note();
 
         note.setNoteId(noteDTO.getNoteID());
         note.setTitle(noteDTO.getNoteTitle());
         note.setDescription(noteDTO.getNoteDescription());
 
-        // if there are no error, add note based on currentUserId:
+        // if there are no error, add new note based on currentUserId:
         if (errMsg == null) {
-            // set a specific note to current user by userId:
+            // set a current user by userId:
             note.setUserId(currentUserId);
             // add note to Notes db by noteId:
             int currentNoteId = this.noteService.addNote(note);
@@ -77,7 +78,7 @@ public class NotesController {
         return "result";
     }
 
-    // delete a note based on noteId:
+    // delete a note based on noteId path parameter:
     @GetMapping("/home/note/delete/{noteId}")
     public String deleteNote(@PathVariable("noteId") int noteId, Authentication auth, Model model) {
 
