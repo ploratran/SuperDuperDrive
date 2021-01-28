@@ -2,7 +2,7 @@
 
 **Super*Duper*Drive** is a Udacity project practicing on Spring MVC architecture. 
 ◊
-## Demo: http://springmvc-env.eba-aqkr627y.us-east-2.elasticbeanstalk.com/login
+## Demo: [http://springmvc-env.eba-aqkr627y.us-east-2.elasticbeanstalk.com](http://springmvc-env.eba-aqkr627y.us-east-2.elasticbeanstalk.com/)
 ![](public/spring-mvc.gif)
 
 ## Table of Contents
